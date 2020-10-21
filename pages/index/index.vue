@@ -13,23 +13,33 @@
 				</view>
 			</template>
 		</nav-bar>
-		<view style="width: 700rpx;background-color: #F1F1F1;" class="m-auto flex rounded-circle mt-2">
+		<view class="px-3 py-2">
+			<view class="position-relative">
+				<view 
+				style="height: 70rpx;width: 70rpx;position: absolute;top: 0;left: 0;"
+				class="flex align-center justify-center text-light-muted"
+				>
+				<text class="iconfont icon-sousuo"></text>
+				</view>
+				<input style="height: 70rpx;padding-left: 70rpx;"
+				type="text"
+				 class="bg-light font-md rounded-circle" 
+				 placeholder="搜索网盘文件" />
+			</view>
+		</view>
+		<!-- <view style="width: 700rpx;background-color: #F1F1F1;" class="m-auto flex rounded-circle mt-2">
 			<uni-icons class="ml-2" color="#999999" size="20" type="search" />
 			<input class="m-1" placeholder="搜索网盘文件" />
-		</view>
+		</view> -->
 		<!-- <uni-search-bar></uni-search-bar> -->
 	</view>
 </template>
 
 <script>
 	import navBar from '../../components/common/nav-bar.vue';
-	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue';
-	import uniIcons from "@/components/uni-icons/uni-icons.vue";
 	export default {
 		components: {
 			navBar,
-			uniSearchBar,
-			uniIcons
 		},
 		data() {
 			return {
