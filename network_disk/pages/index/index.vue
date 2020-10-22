@@ -48,7 +48,8 @@
 				</view>
 			</view>
 		</view>
-	<f-dialog ref="dialog">是否删除选中的文件?</f-dialog>
+		<f-dialog ref="delete">是否删除选中的文件?</f-dialog>
+		<f-dialog ref="rename"><input type="text" v-model="renameValue" class="flex-1 bg-light rounded px-2" style="height: 95rpx;" placeholder="重命名" /></f-dialog>
 	</view>
 </template>
 
@@ -64,6 +65,7 @@ export default {
 	},
 	data() {
 		return {
+			renameValue: '',
 			list: []
 		};
 	},
@@ -90,10 +92,28 @@ export default {
 		handleBottomEvent(item) {
 			switch (item.name) {
 				case '删除':
-					this.$refs.dialog.open(close => {
+					this.$refs.delete.open(close => {
+						//对List进行过滤，留下未被选中的
+						this.list = this.list.filter(item => !item.checked);
 						close();
-						console.log('删除文件');
-						console.log(this.checkList);
+						uni.showToast({
+							title: '删除成功',
+							icon: 'none'
+						});
+					});
+					break;
+				case '重命名':
+					//只能对单个文件进行，所以取this.checkList[0],也就是选中的唯一元素
+					this.renameValue = this.checkList[0].name;
+					this.$refs.rename.open(close => {
+						if (this.renameValue == '') {
+							return uni.showToast({
+								title: '文件名称不能为空',
+								icon: 'none'
+							});
+						}
+						this.checkList[0].name = this.renameValue;
+						close();
 					});
 					break;
 				default:
