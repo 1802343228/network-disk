@@ -41,22 +41,26 @@
 					v-for="(item, index) in actions"
 					:key="index"
 					hover-class="bg-hover-primary"
+					@click="handleBottomEvent(item)"
 				>
 					<text class="iconfont" :class="item.icon"></text>
 					{{ item.name }}
 				</view>
 			</view>
 		</view>
+	<f-dialog ref="dialog">是否删除选中的文件?</f-dialog>
 	</view>
 </template>
 
 <script>
 import navBar from '../../components/common/nav-bar.vue';
 import fList from '../../components/common/f-list.vue';
+import fDialog from '@/components/common/f-dialog.vue';
 export default {
 	components: {
 		navBar,
-		fList
+		fList,
+		fDialog
 	},
 	data() {
 		return {
@@ -82,6 +86,19 @@ export default {
 			this.list.forEach(item => {
 				item.checked = checked;
 			});
+		},
+		handleBottomEvent(item) {
+			switch (item.name) {
+				case '删除':
+					this.$refs.dialog.open(close => {
+						close();
+						console.log('删除文件');
+						console.log(this.checkList);
+					});
+					break;
+				default:
+					break;
+			}
 		}
 	},
 	computed: {
