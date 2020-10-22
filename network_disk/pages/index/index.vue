@@ -4,7 +4,7 @@
 			<template v-if="checkCount === 0">
 				<text slot="left" class="font-md ml-3">首页</text>
 				<template slot="right">
-					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle ml-5">
+					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle ml-5" @tap="openAddDialog">
 						<text class="iconfont icon-zengjia"></text>
 					</view>
 					<view style="width: 60tpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle  ml-3">
@@ -50,6 +50,20 @@
 		</view>
 		<f-dialog ref="delete">是否删除选中的文件?</f-dialog>
 		<f-dialog ref="rename"><input type="text" v-model="renameValue" class="flex-1 bg-light rounded px-2" style="height: 95rpx;" placeholder="重命名" /></f-dialog>
+
+		<!-- 添加操作条，type表示弹出的位置类型，具体取值都在popup子组件中 -->
+		<uni-popup ref="add" type="bottom">
+			<view class="bg-white flex" style="height: 200rpx;">
+				<view class="flex-1 flex align-center justify-center flex-column" hover-class="bg-light" v-for="(item, index) in addList" :key="index">
+					<text
+						style="width: 110rpx;height: 110rpx;"
+						class="rounded-circle bg-light iconfont flex align-center justify-center"
+						:class="item.icon + ' ' + item.color"
+					></text>
+					<text class="font text-muted">{{ item.name }}</text>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -57,16 +71,41 @@
 import navBar from '../../components/common/nav-bar.vue';
 import fList from '../../components/common/f-list.vue';
 import fDialog from '@/components/common/f-dialog.vue';
+import uniPopup from '@/components/uni-ui/uni-popup/uni-popup.vue';
+
 export default {
 	components: {
 		navBar,
 		fList,
-		fDialog
+		fDialog,
+		uniPopup
 	},
 	data() {
 		return {
 			renameValue: '',
-			list: []
+			list: [],
+			addList: [
+				{
+					icon: 'icon-file-b-6',
+					color: 'text-success',
+					name: '上传图片'
+				},
+				{
+					icon: 'icon-file-b-9',
+					color: 'text-primary',
+					name: '上传视频'
+				},
+				{
+					icon: 'icon-file-b-8',
+					color: 'text-muted',
+					name: '上传文件'
+				},
+				{
+					icon: 'icon-file-b-2',
+					color: 'text-warning',
+					name: '新建文件夹'
+				}
+			]
 		};
 	},
 	onLoad: function() {
@@ -89,6 +128,7 @@ export default {
 				item.checked = checked;
 			});
 		},
+		//处理底部操作时间
 		handleBottomEvent(item) {
 			switch (item.name) {
 				case '删除':
@@ -119,6 +159,10 @@ export default {
 				default:
 					break;
 			}
+		},
+		//打开添加操作条
+		openAddDialog() {
+			this.$refs.add.open();
 		}
 	},
 	computed: {
