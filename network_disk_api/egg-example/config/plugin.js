@@ -2,16 +2,17 @@
 
 /** @type Egg.EggPlugin */
 module.exports = {
-  cors:{
+  cors: {
     enable: true,
-  package: 'egg-cors',
+    package: 'egg-cors',
   },
-  sequelize: {
+  sequelize : {
     enable: true,
     package: 'egg-sequelize',
   },
-  // had enabled by egg
-  // static: {
-  //   enable: true,
-  // }
+  valparams: {
+    enable: true,
+    package: 'egg-valparams',
+  },
 };
+

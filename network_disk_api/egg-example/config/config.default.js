@@ -58,7 +58,15 @@ module.exports = appInfo => {
       // 所有驼峰命名格式化
       underscored: true
     }
-  };
+  },
+
+  config.valparams = {
+    locale: 'zh-cn',
+    throwError: true,
+  },
+  config.crypto = {
+    secret:  'qhdgw@45ncashdaksh2!#@3nxjdas*_672'
+};
   return {
     ...config,
     ...userConfig,
