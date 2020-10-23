@@ -76,6 +76,9 @@ config.redis = {
     db: 1,
   },
 };
+config.jwt = {
+  secret: 'qhdgw@45ncashdaksh2!#@3nxjdas*_672',
+};
   return {
     ...config,
     ...userConfig,
