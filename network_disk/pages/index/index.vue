@@ -27,7 +27,10 @@
 				<input style="height: 70rpx;padding-left: 70rpx;" type="text" class="bg-light font-md rounded-circle" placeholder="搜索网盘文件" />
 			</view>
 		</view>
-		<f-list v-for="(item, index) in list" :key="index" :item="item" :index="index" @select="select"></f-list>
+		<f-list 
+		v-for="(item, index) in list" 
+		:key="index" :item="item" 
+		:index="index" @select="select" @click="doEvent(item)"></f-list>
 
 		<!-- 底部操作条 -->
 		<!-- 选中个数大于0才会出现操作条 -->
@@ -50,11 +53,11 @@
 		</view>
 		<f-dialog ref="delete">是否删除选中的文件?</f-dialog>
 		<f-dialog ref="rename"><input type="text" v-model="renameValue" class="flex-1 bg-light rounded px-2" style="height: 95rpx;" placeholder="重命名" /></f-dialog>
-
+		<f-dialog ref="newdir"><input type="text" v-model="newdirname" class="flex-1 bg-light rounded px-2" style="height: 95rpx;" placeholder="新建文件夹名称" /></f-dialog>
 		<!-- 添加操作条，type表示弹出的位置类型，具体取值都在popup子组件中 -->
 		<uni-popup ref="add" type="bottom">
 			<view class="bg-white flex" style="height: 200rpx;">
-				<view class="flex-1 flex align-center justify-center flex-column" hover-class="bg-light" v-for="(item, index) in addList" :key="index">
+				<view class="flex-1 flex align-center justify-center flex-column" hover-class="bg-light" v-for="(item, index) in addList" :key="index" @tap="handleAddEvent(item)">
 					<text
 						style="width: 110rpx;height: 110rpx;"
 						class="rounded-circle bg-light iconfont flex align-center justify-center"
@@ -83,7 +86,45 @@ export default {
 	data() {
 		return {
 			renameValue: '',
-			list: [],
+			newdirname:'',
+			list: [
+        {
+          type: 'dir',
+          name: '我的笔记',
+          create_time: '2020-10-21 08:00',
+          checked: false
+        },
+        {
+          type: 'image',
+          name: '壁纸.jpg',
+          data:'https://imgs.aixifan.com/o_1e09h5sut1uh39g56d1eqa1l4rv.jpg',
+		  checked: false
+        },
+		{
+			type: 'image',
+			name: '壁纸.jpg',
+			data:'https://img.3dmgame.com/uploads/images/news/20200519/1589880846_790618.jpg',
+			checked: false
+		},
+        {
+          type: 'video',
+          name: 'uniapp实战教程.mp4',
+          create_time: '2020-10-21 08:00',
+          checked: false
+        },
+        {
+          type: 'text',
+          name: '记事本.txt',
+          create_time: '2020-10-21 08:00',
+          checked: false
+        },
+        {
+          type: 'none',
+          name: '压缩包.rar',
+          create_time: '2020-10-21 08:00',
+          checked: false
+        }
+      ],
 			addList: [
 				{
 					icon: 'icon-file-b-6',
@@ -163,6 +204,50 @@ export default {
 		//打开添加操作条
 		openAddDialog() {
 			this.$refs.add.open();
+		},
+		handleAddEvent(item) {
+			this.$refs.add.close();
+			switch(item.name) {
+				case '新建文件夹':
+				this.$refs.newdir.open(close => {
+					if(this.newdirname == '') {
+						return uni.showToast({
+							title:'文件夹名称不能为空',
+							icon:'none'
+						});
+					}
+					//模拟请求服务器，这里先增加到List数组中
+					this.list.push({
+						type:'dir',
+						name:this.newdirname,
+						create_time:'2020-10-23',
+						checked:false
+					});
+					uni.showToast({
+						title:'新建文件夹成功',
+						icon:'none'
+					});
+					close();
+				});
+				break;
+			default:
+			    break;
+			}
+		},
+		doEvent(item) {
+			switch(item.type) {
+				case 'image':
+				let images = this.list.filter(item => {
+					return item.type === 'image'
+				})
+				uni.previewImage({
+					current:item.data,
+					urls:images.map(item=>item.data)
+				})
+				break;
+				default:
+				break;
+			}
 		}
 	},
 	computed: {
