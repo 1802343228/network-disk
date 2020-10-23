@@ -938,80 +938,106 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "view",
-    {
-      staticClass: _vm._$s(
-        0,
-        "sc",
-        "p-3 flex align-center border-bottom border-light-secondary"
-      ),
-      attrs: { _i: 0 },
-      on: {
-        click: function($event) {
-          return _vm.$emit("click")
-        }
-      }
-    },
     [
-      _c("text", {
-        staticClass: _vm._$s(1, "sc", "iconfont"),
-        class: _vm._$s(1, "c", _vm.iconClass),
-        attrs: { _i: 1 }
-      }),
-      _c(
-        "view",
-        {
-          staticClass: _vm._$s(2, "sc", "flex flex-column ml-3"),
-          attrs: { _i: 2 }
-        },
-        [
-          _c(
-            "text",
-            { staticClass: _vm._$s(3, "sc", "font-md"), attrs: { _i: 3 } },
-            [_vm._v(_vm._$s(3, "t0-0", _vm._s(_vm.item.name)))]
-          ),
-          _c(
-            "text",
-            {
-              staticClass: _vm._$s(4, "sc", "font-sm text-muted"),
-              attrs: { _i: 4 }
-            },
-            [_vm._v(_vm._$s(4, "t0-0", _vm._s(_vm.item.create_time)))]
-          )
-        ]
-      ),
       _c(
         "view",
         {
           staticClass: _vm._$s(
-            5,
+            1,
             "sc",
-            "ml-auto flex align-center justify-center"
+            "p-3 flex align-center border-bottom border-light-secondary"
           ),
-          attrs: { _i: 5 },
+          attrs: { _i: 1 },
           on: {
             click: function($event) {
-              $event.stopPropagation()
-              return _vm.select($event)
+              return _vm.$emit("click")
             }
           }
         },
         [
-          _vm._$s(6, "i", !_vm.item.checked)
-            ? _c("text", {
-                staticClass: _vm._$s(6, "sc", "border rounded-circle"),
-                attrs: { _i: 6 }
-              })
-            : _c("text", {
-                staticClass: _vm._$s(
-                  7,
-                  "sc",
-                  "iconfont icon-xuanze-yixuan text-primary"
-                ),
-                attrs: { _i: 7 }
-              })
+          _c("text", {
+            staticClass: _vm._$s(2, "sc", "iconfont"),
+            class: _vm._$s(2, "c", _vm.iconClass),
+            attrs: { _i: 2 }
+          }),
+          _c(
+            "view",
+            {
+              staticClass: _vm._$s(3, "sc", "flex flex-column ml-3"),
+              attrs: { _i: 3 }
+            },
+            [
+              _c(
+                "text",
+                { staticClass: _vm._$s(4, "sc", "font-md"), attrs: { _i: 4 } },
+                [_vm._v(_vm._$s(4, "t0-0", _vm._s(_vm.item.name)))]
+              ),
+              _c(
+                "text",
+                {
+                  staticClass: _vm._$s(5, "sc", "font-sm text-muted"),
+                  attrs: { _i: 5 }
+                },
+                [_vm._v(_vm._$s(5, "t0-0", _vm._s(_vm.item.create_time)))]
+              )
+            ]
+          ),
+          _vm._$s(6, "i", _vm.showRight)
+            ? _c(
+                "view",
+                { staticClass: _vm._$s(6, "sc", "ml-auto"), attrs: { _i: 6 } },
+                [
+                  _vm._t(
+                    "default",
+                    [
+                      _c(
+                        "view",
+                        {
+                          staticClass: _vm._$s(
+                            8,
+                            "sc",
+                            " flex align-center justify-center"
+                          ),
+                          attrs: { _i: 8 },
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              return _vm.select($event)
+                            }
+                          }
+                        },
+                        [
+                          _vm._$s(9, "i", !_vm.item.checked)
+                            ? _c("text", {
+                                staticClass: _vm._$s(
+                                  9,
+                                  "sc",
+                                  "rounded-circle border"
+                                ),
+                                attrs: { _i: 9 }
+                              })
+                            : _c("text", {
+                                staticClass: _vm._$s(
+                                  10,
+                                  "sc",
+                                  "iconfont icon-xuanze-yixuan text-primary"
+                                ),
+                                attrs: { _i: 10 }
+                              })
+                        ]
+                      )
+                    ],
+                    { _i: 7 }
+                  )
+                ],
+                2
+              )
+            : _vm._e()
         ]
-      )
-    ]
+      ),
+      _vm._t("bottom", null, { _i: 11 })
+    ],
+    2
   )
 }
 var recyclableRender = false
@@ -1040,7 +1066,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Pro
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0; //\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n\nvar icons = {\n  dir: {\n    icon: 'icon-file-b-2',\n    color: 'text-warning' },\n\n  image: {\n    icon: 'icon-file-b-6',\n    color: 'text-success' },\n\n  video: {\n    icon: 'icon-file-b-9',\n    color: 'text-primary' },\n\n  text: {\n    icon: 'icon-file-s-7',\n    color: 'text-info' },\n\n  none: {\n    icon: 'icon-file-b-8',\n    color: 'text-muted' } };var _default =\n\n\n{\n  props: {\n    item: Object,\n    index: [Number, String] },\n\n  computed: {\n    iconClass: function iconClass() {\n      var item = icons[this.item.type];\n      return \"\".concat(item.icon, \" \").concat(item.color);\n    } },\n\n  methods: {\n    select: function select() {\n      this.$emit('select', {\n        index: this.index,\n        value: !this.item.checked });\n\n    } } };exports.default = _default;//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vY29tcG9uZW50cy9jb21tb24vZi1saXN0LnZ1ZSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7QUFlQTtBQUNBO0FBQ0EseUJBREE7QUFFQSx5QkFGQSxFQURBOztBQUtBO0FBQ0EseUJBREE7QUFFQSx5QkFGQSxFQUxBOztBQVNBO0FBQ0EseUJBREE7QUFFQSx5QkFGQSxFQVRBOztBQWFBO0FBQ0EseUJBREE7QUFFQSxzQkFGQSxFQWJBOztBQWlCQTtBQUNBLHlCQURBO0FBRUEsdUJBRkEsRUFqQkEsRzs7O0FBc0JBO0FBQ0E7QUFDQSxnQkFEQTtBQUVBLDJCQUZBLEVBREE7O0FBS0E7QUFDQSxhQURBLHVCQUNBO0FBQ0E7QUFDQTtBQUNBLEtBSkEsRUFMQTs7QUFXQTtBQUNBLFVBREEsb0JBQ0E7QUFDQTtBQUNBLHlCQURBO0FBRUEsaUNBRkE7O0FBSUEsS0FOQSxFQVhBLEUiLCJmaWxlIjoiMjMuanMiLCJzb3VyY2VzQ29udGVudCI6WyI8dGVtcGxhdGU+XHJcblx0PHZpZXcgY2xhc3M9XCJwLTMgZmxleCBhbGlnbi1jZW50ZXIgYm9yZGVyLWJvdHRvbSBib3JkZXItbGlnaHQtc2Vjb25kYXJ5XCIgQGNsaWNrPVwiJGVtaXQoJ2NsaWNrJylcIj5cclxuXHRcdDx0ZXh0IGNsYXNzPVwiaWNvbmZvbnRcIiA6Y2xhc3M9XCJpY29uQ2xhc3NcIiBzdHlsZT1cImZvbnQtc2l6ZTogNi1ycHg7XCI+PC90ZXh0PlxyXG5cdFx0PHZpZXcgY2xhc3M9XCJmbGV4IGZsZXgtY29sdW1uIG1sLTNcIiBzdHlsZT1cImxpbmUtaGVpZ2h0OiAxLjI7XCI+XHJcblx0XHRcdDx0ZXh0IGNsYXNzPVwiZm9udC1tZFwiPnt7IGl0ZW0ubmFtZSB9fTwvdGV4dD5cclxuXHRcdFx0PHRleHQgY2xhc3M9XCJmb250LXNtIHRleHQtbXV0ZWRcIj57eyBpdGVtLmNyZWF0ZV90aW1lIH19PC90ZXh0PlxyXG5cdFx0PC92aWV3PlxyXG5cdFx0PHZpZXcgY2xhc3M9XCJtbC1hdXRvIGZsZXggYWxpZ24tY2VudGVyIGp1c3RpZnktY2VudGVyXCIgc3R5bGU9XCI3MHJweDtoZWlnaHQ6IDcwcnB4O1wiIEBjbGljay5zdG9wPVwic2VsZWN0XCI+XHJcblx0XHRcdDx0ZXh0IHYtaWY9XCIhaXRlbS5jaGVja2VkXCIgc3R5bGU9XCJoZWlnaHQ6IDI1cnB4O3dpZHRoOiAyNXJweDtcIiBjbGFzcz1cImJvcmRlciByb3VuZGVkLWNpcmNsZVwiPjwvdGV4dD5cclxuXHRcdFx0PHRleHQgdi1lbHNlIGNsYXNzPVwiaWNvbmZvbnQgaWNvbi14dWFuemUteWl4dWFuIHRleHQtcHJpbWFyeVwiIHN0eWxlPVwiZm9udC1zaXplOiA0MHJweDtcIj48L3RleHQ+XHJcblx0XHQ8L3ZpZXc+XHJcblx0PC92aWV3PlxyXG48L3RlbXBsYXRlPlxyXG5cclxuPHNjcmlwdD5cclxuY29uc3QgaWNvbnMgPSB7XHJcblx0ZGlyOiB7XHJcblx0XHRpY29uOiAnaWNvbi1maWxlLWItMicsXHJcblx0XHRjb2xvcjogJ3RleHQtd2FybmluZydcclxuXHR9LFxyXG5cdGltYWdlOiB7XHJcblx0XHRpY29uOiAnaWNvbi1maWxlLWItNicsXHJcblx0XHRjb2xvcjogJ3RleHQtc3VjY2VzcydcclxuXHR9LFxyXG5cdHZpZGVvOiB7XHJcblx0XHRpY29uOiAnaWNvbi1maWxlLWItOScsXHJcblx0XHRjb2xvcjogJ3RleHQtcHJpbWFyeSdcclxuXHR9LFxyXG5cdHRleHQ6IHtcclxuXHRcdGljb246ICdpY29uLWZpbGUtcy03JyxcclxuXHRcdGNvbG9yOiAndGV4dC1pbmZvJ1xyXG5cdH0sXHJcblx0bm9uZToge1xyXG5cdFx0aWNvbjogJ2ljb24tZmlsZS1iLTgnLFxyXG5cdFx0Y29sb3I6ICd0ZXh0LW11dGVkJ1xyXG5cdH1cclxufTtcclxuZXhwb3J0IGRlZmF1bHQge1xyXG5cdHByb3BzOiB7XHJcblx0XHRpdGVtOiBPYmplY3QsXHJcblx0XHRpbmRleDogW051bWJlciwgU3RyaW5nXVxyXG5cdH0sXHJcblx0Y29tcHV0ZWQ6IHtcclxuXHRcdGljb25DbGFzcygpIHtcclxuXHRcdFx0bGV0IGl0ZW0gPSBpY29uc1t0aGlzLml0ZW0udHlwZV07XHJcblx0XHRcdHJldHVybiBgJHtpdGVtLmljb259ICR7aXRlbS5jb2xvcn1gO1xyXG5cdFx0fVxyXG5cdH0sXHJcblx0bWV0aG9kczoge1xyXG5cdFx0c2VsZWN0KCkge1xyXG5cdFx0XHR0aGlzLiRlbWl0KCdzZWxlY3QnLCB7XHJcblx0XHRcdFx0aW5kZXg6IHRoaXMuaW5kZXgsXHJcblx0XHRcdFx0dmFsdWU6ICF0aGlzLml0ZW0uY2hlY2tlZFxyXG5cdFx0XHR9KVxyXG5cdFx0fVxyXG5cdH1cclxufTtcclxuPC9zY3JpcHQ+XHJcblxyXG48c3R5bGU+PC9zdHlsZT5cbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///23\n");
+eval("Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0; //\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n\nvar icons = {\n  dir: {\n    icon: 'icon-file-b-2',\n    color: 'text-warning' },\n\n  image: {\n    icon: 'icon-file-b-6',\n    color: 'text-success' },\n\n  video: {\n    icon: 'icon-file-b-9',\n    color: 'text-primary' },\n\n  text: {\n    icon: 'icon-file-s-7',\n    color: 'text-info' },\n\n  none: {\n    icon: 'icon-file-b-8',\n    color: 'text-muted' } };var _default =\n\n\n{\n  props: {\n    item: Object,\n    index: [Number, String],\n    showRight: {\n      type: Boolean,\n      default: true } },\n\n\n  computed: {\n    iconClass: function iconClass() {\n      var item = icons[this.item.type];\n      return \"\".concat(item.icon, \" \").concat(item.color);\n    } },\n\n  methods: {\n    select: function select() {\n      this.$emit('select', {\n        index: this.index,\n        value: !this.item.checked });\n\n    } } };exports.default = _default;//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vY29tcG9uZW50cy9jb21tb24vZi1saXN0LnZ1ZSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBa0NBO0FBQ0E7QUFDQSx5QkFEQTtBQUVBLHlCQUZBLEVBREE7O0FBS0E7QUFDQSx5QkFEQTtBQUVBLHlCQUZBLEVBTEE7O0FBU0E7QUFDQSx5QkFEQTtBQUVBLHlCQUZBLEVBVEE7O0FBYUE7QUFDQSx5QkFEQTtBQUVBLHNCQUZBLEVBYkE7O0FBaUJBO0FBQ0EseUJBREE7QUFFQSx1QkFGQSxFQWpCQSxHOzs7QUFzQkE7QUFDQTtBQUNBLGdCQURBO0FBRUEsMkJBRkE7QUFHQTtBQUNBLG1CQURBO0FBRUEsbUJBRkEsRUFIQSxFQURBOzs7QUFTQTtBQUNBLGFBREEsdUJBQ0E7QUFDQTtBQUNBO0FBQ0EsS0FKQSxFQVRBOztBQWVBO0FBQ0EsVUFEQSxvQkFDQTtBQUNBO0FBQ0EseUJBREE7QUFFQSxpQ0FGQTs7QUFJQSxLQU5BLEVBZkEsRSIsImZpbGUiOiIyMy5qcyIsInNvdXJjZXNDb250ZW50IjpbIjx0ZW1wbGF0ZT5cblx0PHZpZXc+XG5cdFx0PHZpZXdcblx0XHRcdGNsYXNzPVwicC0zIGZsZXggYWxpZ24tY2VudGVyIGJvcmRlci1ib3R0b20gYm9yZGVyLWxpZ2h0LXNlY29uZGFyeVwiXG5cdFx0XHRob3Zlci1jbGFzcz1cImJnLWxpZ2h0XCJcblx0XHRcdEBjbGljaz1cIiRlbWl0KCdjbGljaycpXCJcblx0XHQ+XG5cdFx0XHQ8dGV4dCBjbGFzcz1cImljb25mb250XCIgOmNsYXNzPVwiaWNvbkNsYXNzXCIgc3R5bGU9XCJmb250LXNpemU6IDYwcnB4O1wiPjwvdGV4dD5cblx0XHRcdDx2aWV3IGNsYXNzPVwiZmxleCBmbGV4LWNvbHVtbiBtbC0zXCIgc3R5bGU9XCJsaW5lLWhlaWdodDogMS4yO1wiPlxuXHRcdFx0XHQ8dGV4dCBjbGFzcz1cImZvbnQtbWRcIj57eyBpdGVtLm5hbWUgfX08L3RleHQ+XG5cdFx0XHRcdDx0ZXh0IGNsYXNzPVwiZm9udC1zbSB0ZXh0LW11dGVkXCI+e3sgaXRlbS5jcmVhdGVfdGltZSB9fTwvdGV4dD5cblx0XHRcdDwvdmlldz5cblx0XHRcdDx2aWV3IHYtaWY9XCJzaG93UmlnaHRcIiBjbGFzcz1cIm1sLWF1dG9cIj5cblx0XHRcdFx0PHNsb3Q+XG5cdFx0XHRcdFx0PHZpZXdcblx0XHRcdFx0XHRcdGNsYXNzPVwiIGZsZXggYWxpZ24tY2VudGVyIGp1c3RpZnktY2VudGVyXCJcblx0XHRcdFx0XHRcdHN0eWxlPVwid2lkdGg6IDcwcnB4O2hlaWdodDogNzBycHg7XCJcblx0XHRcdFx0XHRcdEBjbGljay5zdG9wPVwic2VsZWN0XCJcblx0XHRcdFx0XHQ+XG5cdFx0XHRcdFx0XHQ8dGV4dFxuXHRcdFx0XHRcdFx0XHR2LWlmPVwiIWl0ZW0uY2hlY2tlZFwiXG5cdFx0XHRcdFx0XHRcdHN0eWxlPVwiaGVpZ2h0OiAyNXJweDt3aWR0aDogMjVycHg7XCJcblx0XHRcdFx0XHRcdFx0Y2xhc3M9XCJyb3VuZGVkLWNpcmNsZSBib3JkZXJcIlxuXHRcdFx0XHRcdFx0PjwvdGV4dD5cblx0XHRcdFx0XHRcdDx0ZXh0IHYtZWxzZSBjbGFzcz1cImljb25mb250IGljb24teHVhbnplLXlpeHVhbiB0ZXh0LXByaW1hcnlcIiBzdHlsZT1cImZvbnQtc2l6ZTogNDBycHg7XCI+PC90ZXh0PlxuXHRcdFx0XHRcdDwvdmlldz5cblx0XHRcdFx0PC9zbG90PlxuXHRcdFx0PC92aWV3PlxuXHRcdDwvdmlldz5cblx0XHQ8c2xvdCBuYW1lPVwiYm90dG9tXCI+PC9zbG90PlxuXHQ8L3ZpZXc+XG48L3RlbXBsYXRlPlxuIFxuPHNjcmlwdD5cbmNvbnN0IGljb25zID0ge1xuXHRkaXI6IHtcblx0XHRpY29uOiAnaWNvbi1maWxlLWItMicsXG5cdFx0Y29sb3I6ICd0ZXh0LXdhcm5pbmcnXG5cdH0sXG5cdGltYWdlOiB7XG5cdFx0aWNvbjogJ2ljb24tZmlsZS1iLTYnLFxuXHRcdGNvbG9yOiAndGV4dC1zdWNjZXNzJ1xuXHR9LFxuXHR2aWRlbzoge1xuXHRcdGljb246ICdpY29uLWZpbGUtYi05Jyxcblx0XHRjb2xvcjogJ3RleHQtcHJpbWFyeSdcblx0fSxcblx0dGV4dDoge1xuXHRcdGljb246ICdpY29uLWZpbGUtcy03Jyxcblx0XHRjb2xvcjogJ3RleHQtaW5mbydcblx0fSxcblx0bm9uZToge1xuXHRcdGljb246ICdpY29uLWZpbGUtYi04Jyxcblx0XHRjb2xvcjogJ3RleHQtbXV0ZWQnXG5cdH1cbn07XG5leHBvcnQgZGVmYXVsdCB7XG5cdHByb3BzOiB7XG5cdFx0aXRlbTogT2JqZWN0LFxuXHRcdGluZGV4OiBbTnVtYmVyLCBTdHJpbmddLFxuXHRcdHNob3dSaWdodDoge1xuXHRcdFx0dHlwZTogQm9vbGVhbixcblx0XHRcdGRlZmF1bHQ6IHRydWVcblx0XHR9XG5cdH0sXG5cdGNvbXB1dGVkOiB7XG5cdFx0aWNvbkNsYXNzKCkge1xuXHRcdFx0bGV0IGl0ZW0gPSBpY29uc1t0aGlzLml0ZW0udHlwZV07XG5cdFx0XHRyZXR1cm4gYCR7aXRlbS5pY29ufSAke2l0ZW0uY29sb3J9YDtcblx0XHR9XG5cdH0sXG5cdG1ldGhvZHM6IHtcblx0XHRzZWxlY3QoKSB7XG5cdFx0XHR0aGlzLiRlbWl0KCdzZWxlY3QnLCB7XG5cdFx0XHRcdGluZGV4OiB0aGlzLmluZGV4LFxuXHRcdFx0XHR2YWx1ZTogIXRoaXMuaXRlbS5jaGVja2VkXG5cdFx0XHR9KTtcblx0XHR9XG5cdH1cbn07XG48L3NjcmlwdD5cbiBcbjxzdHlsZT48L3N0eWxlPlxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///23\n");
 
 /***/ }),
 /* 24 */
@@ -1899,7 +1925,11 @@ var render = function() {
       {
         staticClass: _vm._$s(17, "sc", "flex justify-between p-3"),
         attrs: { _i: 17 },
-        on: { click: _vm.handleLogin }
+        on: {
+          click: function($event) {
+            return _vm.handleLogin()
+          }
+        }
       },
       [
         _c("text", {
