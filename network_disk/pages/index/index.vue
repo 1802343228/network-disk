@@ -7,7 +7,7 @@
 					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle ml-5" @tap="openAddDialog">
 						<text class="iconfont icon-zengjia"></text>
 					</view>
-					<view style="width: 60tpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle  ml-3">
+					<view style="width: 60tpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle  ml-3" @click="openSortDialog">
 						<text class="iconfont icon-gengduo"></text>
 					</view>
 				</template>
@@ -67,6 +67,22 @@
 				</view>
 			</view>
 		</uni-popup>
+		
+		<!-- 排序框，底部弹出，遍历排序操作数组 -->
+		<uni-popup ref="sort" type="bottom">
+			<view class="bg-white">
+				<view
+				v-for="(item,index) in sortOptions"
+				:key="index"
+				class="flex align-center justify-center py-3 font border-bottom border-light-secondary"
+				:class="index === sortIndex ? 'text-main' : 'text-dark' "
+				hover-class="bg-light"
+				@click="changeSort(index)"
+				>
+				{{item.name}}
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -87,6 +103,15 @@ export default {
 		return {
 			renameValue: '',
 			newdirname:'',
+			sortIndex:0,
+			sortOptions:[
+				{
+					name:'按名称排序'
+				},
+				{
+					name:'按时间排序'
+				}
+			],
 			list: [
         {
           type: 'dir',
@@ -260,6 +285,15 @@ export default {
 				default:
 				break;
 			}
+		},
+		//根据排序类型的索引切换不同的排序，关闭sort排序框
+		changeSort(index){
+			this.sortIndex = index;
+			this.$refs.sort.close();
+		},
+		//打开sort排序框
+		openSortDialog() {
+			this.$refs.sort.open();
 		}
 	},
 	computed: {
