@@ -108,10 +108,16 @@ export default {
 		},
         {
           type: 'video',
-          name: 'uniapp实战教程.mp4',
-          create_time: '2020-10-21 08:00',
+          name: 'RADWIMPS1.mp4',
+          data: '../../static/video/RADWIMPS1.mp4',
           checked: false
         },
+		{
+		  type: 'video',
+		  name: 'RADWIMPS2.mp4',
+		  data: '../../static/video/RADWIMPS2.mp4',
+		  checked: false
+		},
         {
           type: 'text',
           name: '记事本.txt',
@@ -150,14 +156,14 @@ export default {
 		};
 	},
 	onLoad: function() {
-		uni.request({
-			url: 'http://localhost:7001/list',
-			method: 'GET',
-			success: res => {
-				this.list = res.data.data;
-				console.log(this.list[0].type);
-			}
-		});
+		// uni.request({
+		// 	url: 'http://localhost:7001/list',
+		// 	method: 'GET',
+		// 	success: res => {
+		// 		this.list = res.data.data;
+		// 		console.log(this.list[0].type);
+		// 	}
+		// });
 	},
 	methods: {
 		select(e) {
@@ -244,6 +250,12 @@ export default {
 					current:item.data,
 					urls:images.map(item=>item.data)
 				})
+				break;
+				
+				case 'video':
+				uni.navigateTo({
+					url:'../video/video?url='+item.data + '&title='+item.name,
+				});
 				break;
 				default:
 				break;
