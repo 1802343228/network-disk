@@ -1482,7 +1482,242 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("view")
+  return _c(
+    "view",
+    { staticClass: _vm._$s(0, "sc", "flex flex-column"), attrs: { _i: 0 } },
+    [
+      _c(
+        "view",
+        {
+          staticClass: _vm._$s(
+            1,
+            "sc",
+            "flex border-bottom border-light-secondary"
+          ),
+          attrs: { _i: 1 }
+        },
+        _vm._l(_vm._$s(2, "f", { forItems: _vm.tabBars }), function(
+          item,
+          index,
+          $20,
+          $30
+        ) {
+          return _c(
+            "view",
+            {
+              key: _vm._$s(2, "f", { forIndex: $20, key: index }),
+              staticClass: _vm._$s(
+                "2-" + $30,
+                "sc",
+                "flex-1 flex flex-column align-center justify-center"
+              ),
+              class: _vm._$s(
+                "2-" + $30,
+                "c",
+                index === _vm.tabIndex ? "text-main" : ""
+              ),
+              attrs: { _i: "2-" + $30 },
+              on: {
+                click: function($event) {
+                  return _vm.changeTab(index)
+                }
+              }
+            },
+            [
+              _c(
+                "text",
+                {
+                  staticClass: _vm._$s("3-" + $30, "sc", "font-md"),
+                  attrs: { _i: "3-" + $30 }
+                },
+                [_vm._v(_vm._$s("3-" + $30, "t0-0", _vm._s(item.name)))]
+              ),
+              _c("text", {
+                staticClass: _vm._$s("4-" + $30, "sc", "rounded"),
+                class: _vm._$s(
+                  "4-" + $30,
+                  "c",
+                  _vm.tabIndex === index ? "bg-main" : "bg-white"
+                ),
+                attrs: { _i: "4-" + $30 }
+              })
+            ]
+          )
+        }),
+        0
+      ),
+      _c(
+        "swiper",
+        {
+          staticClass: _vm._$s(5, "sc", "flex-1 flex"),
+          attrs: { current: _vm._$s(5, "a-current", _vm.tabIndex), _i: 5 },
+          on: {
+            change: function($event) {
+              return _vm.changeTab($event.detail.current)
+            }
+          }
+        },
+        _vm._l(_vm._$s(6, "f", { forItems: _vm.tabBars }), function(
+          item,
+          index,
+          $21,
+          $31
+        ) {
+          return _c(
+            "swiper-item",
+            {
+              key: _vm._$s(6, "f", { forIndex: $21, key: index }),
+              staticClass: _vm._$s("6-" + $31, "sc", "flex-1 flex"),
+              attrs: { _i: "6-" + $31 }
+            },
+            [
+              _c(
+                "scroll-view",
+                {
+                  staticClass: _vm._$s("7-" + $31, "sc", "flex-1"),
+                  attrs: { _i: "7-" + $31 }
+                },
+                [
+                  _c("view", {
+                    staticClass: _vm._$s(
+                      "8-" + $31,
+                      "sc",
+                      "bg-light flex align-center font-sm px-2 text-muted"
+                    ),
+                    attrs: { _i: "8-" + $31 }
+                  }),
+                  _c(
+                    "view",
+                    {
+                      staticClass: _vm._$s(
+                        "9-" + $31,
+                        "sc",
+                        "p-2 border-bottom border-light-secondary font text-muted"
+                      ),
+                      attrs: { _i: "9-" + $31 }
+                    },
+                    [
+                      _vm._v(
+                        _vm._$s("9-" + $31, "t0-0", _vm._s(_vm.downing.length))
+                      )
+                    ]
+                  ),
+                  _vm._l(
+                    _vm._$s(10 + "-" + $31, "f", { forItems: _vm.downing }),
+                    function(item, index, $22, $32) {
+                      return _c(
+                        "f-list",
+                        {
+                          key: _vm._$s(10 + "-" + $31, "f", {
+                            forIndex: $22,
+                            key: "i" + index
+                          }),
+                          attrs: {
+                            item: item,
+                            index: index,
+                            _i: "10-" + $31 + "-" + $32
+                          }
+                        },
+                        [
+                          _c(
+                            "view",
+                            {
+                              staticClass: _vm._$s(
+                                "11-" + $31 + "-" + $32,
+                                "sc",
+                                "flex align-center text-main"
+                              ),
+                              attrs: { _i: "11-" + $31 + "-" + $32 }
+                            },
+                            [
+                              _c("text", {
+                                staticClass: _vm._$s(
+                                  "12-" + $31 + "-" + $32,
+                                  "sc",
+                                  "iconfont icon-zanting"
+                                ),
+                                attrs: { _i: "12-" + $31 + "-" + $32 }
+                              }),
+                              _c(
+                                "text",
+                                {
+                                  staticClass: _vm._$s(
+                                    "13-" + $31 + "-" + $32,
+                                    "sc",
+                                    "ml-1"
+                                  ),
+                                  attrs: { _i: "13-" + $31 + "-" + $32 }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._$s(
+                                      "13-" + $31 + "-" + $32,
+                                      "t0-0",
+                                      _vm._s(item.download)
+                                    )
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _c("progress", {
+                            attrs: {
+                              percent: _vm._$s(
+                                "14-" + $31 + "-" + $32,
+                                "a-percent",
+                                item.download
+                              ),
+                              _i: "14-" + $31 + "-" + $32
+                            },
+                            slot: "bottom"
+                          })
+                        ]
+                      )
+                    }
+                  ),
+                  _c(
+                    "view",
+                    {
+                      staticClass: _vm._$s(
+                        "15-" + $31,
+                        "sc",
+                        "p-2 border-bottom border-light-secondary font text-muted"
+                      ),
+                      attrs: { _i: "15-" + $31 }
+                    },
+                    [
+                      _vm._v(
+                        _vm._$s("15-" + $31, "t0-0", _vm._s(_vm.downed.length))
+                      )
+                    ]
+                  ),
+                  _vm._l(
+                    _vm._$s(16 + "-" + $31, "f", { forItems: _vm.downed }),
+                    function(item, index, $23, $33) {
+                      return _c("f-list", {
+                        key: _vm._$s(16 + "-" + $31, "f", {
+                          forIndex: $23,
+                          key: "d" + index
+                        }),
+                        attrs: {
+                          item: item,
+                          index: index,
+                          showRight: false,
+                          _i: "16-" + $31 + "-" + $33
+                        }
+                      })
+                    }
+                  )
+                ],
+                2
+              )
+            ]
+          )
+        }),
+        0
+      )
+    ]
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -1510,7 +1745,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Pro
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0; //\n//\n//\n//\n//\n//\nvar _default =\n{\n  data: function data() {\n    return {};\n\n\n  },\n  methods: {} };exports.default = _default;//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vcGFnZXMvbGlzdC9saXN0LnZ1ZSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBT0E7QUFDQSxNQURBLGtCQUNBO0FBQ0E7OztBQUdBLEdBTEE7QUFNQSxhQU5BLEUiLCJmaWxlIjoiNDMuanMiLCJzb3VyY2VzQ29udGVudCI6WyI8dGVtcGxhdGU+XG5cdDx2aWV3PlxuXHRcdFxuXHQ8L3ZpZXc+XG48L3RlbXBsYXRlPlxuXG48c2NyaXB0PlxuXHRleHBvcnQgZGVmYXVsdCB7XG5cdFx0ZGF0YSgpIHtcblx0XHRcdHJldHVybiB7XG5cdFx0XHRcdFxuXHRcdFx0fVxuXHRcdH0sXG5cdFx0bWV0aG9kczoge1xuXHRcdFx0XG5cdFx0fVxuXHR9XG48L3NjcmlwdD5cblxuPHN0eWxlPlxuXG48L3N0eWxlPlxuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///43\n");
+eval("Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvar _fList = _interopRequireDefault(__webpack_require__(/*! @/components/common/f-list.vue */ 19));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\n//\nvar _default = { data: function data() {return { tabIndex: 0, tabBars: [{ name: '下载列表' }, { name: '上传列表' }], list: [{ type: 'image', name: '壁纸.jpg', data: 'https://imgs.aixifan.com/o_1e09h5sut1uh39g56d1eqa1l4rv.jpg', create_time: '2020-10-21 08:00', download: 50 }, { type: 'image', name: '壁纸.jpg', data: 'https://img.3dmgame.com/uploads/images/news/20200519/1589880846_790618.jpg', create_time: '2020-10-21 08:00', download: 100 }, { type: 'video', name: 'RADWIMPS1.mp4', data: '../../static/video/RADWIMPS1.mp4', create_time: '2020-10-21 08:00', download: 50 }] };}, components: { fList: _fList.default },\n  computed: {\n    downing: function downing() {\n      return this.list.filter(function (item) {\n        return item.download < 100;\n      });\n    },\n    downed: function downed() {\n      return this.list.filter(function (item) {\n        return item.download === 100;\n      });\n    } },\n\n  methods: {\n    changeTab: function changeTab(index) {\n      this.tabIndex = index;\n    } } };exports.default = _default;//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVuaS1hcHA6Ly8vcGFnZXMvbGlzdC9saXN0LnZ1ZSJdLCJuYW1lcyI6WyJkYXRhIiwidGFiSW5kZXgiLCJ0YWJCYXJzIiwibmFtZSIsImxpc3QiLCJ0eXBlIiwiY3JlYXRlX3RpbWUiLCJkb3dubG9hZCIsImNvbXBvbmVudHMiLCJmTGlzdCIsImNvbXB1dGVkIiwiZG93bmluZyIsImZpbHRlciIsIml0ZW0iLCJkb3duZWQiLCJtZXRob2RzIiwiY2hhbmdlVGFiIiwiaW5kZXgiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBeUNBLG1HLDhGQXpDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtlQUdlLEVBQ2RBLElBRGMsa0JBQ1AsQ0FDTixPQUFPLEVBQ05DLFFBQVEsRUFBRSxDQURKLEVBRU5DLE9BQU8sRUFBRSxDQUNSLEVBQ0NDLElBQUksRUFBRSxNQURQLEVBRFEsRUFJUixFQUNDQSxJQUFJLEVBQUUsTUFEUCxFQUpRLENBRkgsRUFVTkMsSUFBSSxFQUFFLENBQ0wsRUFDQ0MsSUFBSSxFQUFFLE9BRFAsRUFFQ0YsSUFBSSxFQUFFLFFBRlAsRUFHQ0gsSUFBSSxFQUFFLDREQUhQLEVBSUNNLFdBQVcsRUFBRSxrQkFKZCxFQUtDQyxRQUFRLEVBQUMsRUFMVixFQURLLEVBUUwsRUFDQ0YsSUFBSSxFQUFFLE9BRFAsRUFFQ0YsSUFBSSxFQUFFLFFBRlAsRUFHQ0gsSUFBSSxFQUFFLDRFQUhQLEVBSUNNLFdBQVcsRUFBRSxrQkFKZCxFQUtDQyxRQUFRLEVBQUMsR0FMVixFQVJLLEVBZUwsRUFDQ0YsSUFBSSxFQUFFLE9BRFAsRUFFQ0YsSUFBSSxFQUFFLGVBRlAsRUFHQ0gsSUFBSSxFQUFFLGtDQUhQLEVBSUNNLFdBQVcsRUFBRSxrQkFKZCxFQUtDQyxRQUFRLEVBQUMsRUFMVixFQWZLLENBVkEsRUFBUCxDQWtDQSxDQXBDYSxFQXFDZEMsVUFBVSxFQUFFLEVBQ1hDLEtBQUssRUFBTEEsY0FEVyxFQXJDRTtBQXdDZEMsVUFBUSxFQUFFO0FBQ1RDLFdBRFMscUJBQ0M7QUFDVCxhQUFPLEtBQUtQLElBQUwsQ0FBVVEsTUFBVixDQUFpQixVQUFBQyxJQUFJLEVBQUk7QUFDL0IsZUFBT0EsSUFBSSxDQUFDTixRQUFMLEdBQWdCLEdBQXZCO0FBQ0EsT0FGTSxDQUFQO0FBR0EsS0FMUTtBQU1UTyxVQU5TLG9CQU1BO0FBQ1IsYUFBTyxLQUFLVixJQUFMLENBQVVRLE1BQVYsQ0FBaUIsVUFBQUMsSUFBSSxFQUFJO0FBQy9CLGVBQU9BLElBQUksQ0FBQ04sUUFBTCxLQUFrQixHQUF6QjtBQUNBLE9BRk0sQ0FBUDtBQUdBLEtBVlEsRUF4Q0k7O0FBb0RkUSxTQUFPLEVBQUU7QUFDUkMsYUFEUSxxQkFDRUMsS0FERixFQUNTO0FBQ2hCLFdBQUtoQixRQUFMLEdBQWdCZ0IsS0FBaEI7QUFDQSxLQUhPLEVBcERLLEUiLCJmaWxlIjoiNDMuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG4vL1xyXG5cclxuaW1wb3J0IGZMaXN0IGZyb20gJ0AvY29tcG9uZW50cy9jb21tb24vZi1saXN0LnZ1ZSc7XHJcbmV4cG9ydCBkZWZhdWx0IHtcclxuXHRkYXRhKCkge1xyXG5cdFx0cmV0dXJuIHtcclxuXHRcdFx0dGFiSW5kZXg6IDAsXHJcblx0XHRcdHRhYkJhcnM6IFtcclxuXHRcdFx0XHR7XHJcblx0XHRcdFx0XHRuYW1lOiAn5LiL6L295YiX6KGoJ1xyXG5cdFx0XHRcdH0sXHJcblx0XHRcdFx0e1xyXG5cdFx0XHRcdFx0bmFtZTogJ+S4iuS8oOWIl+ihqCdcclxuXHRcdFx0XHR9XHJcblx0XHRcdF0sXHJcblx0XHRcdGxpc3Q6IFtcclxuXHRcdFx0XHR7XHJcblx0XHRcdFx0XHR0eXBlOiAnaW1hZ2UnLFxyXG5cdFx0XHRcdFx0bmFtZTogJ+Wjgee6uC5qcGcnLFxyXG5cdFx0XHRcdFx0ZGF0YTogJ2h0dHBzOi8vaW1ncy5haXhpZmFuLmNvbS9vXzFlMDloNXN1dDF1aDM5ZzU2ZDFlcWExbDRydi5qcGcnLFxyXG5cdFx0XHRcdFx0Y3JlYXRlX3RpbWU6ICcyMDIwLTEwLTIxIDA4OjAwJyxcclxuXHRcdFx0XHRcdGRvd25sb2FkOjUwXHJcblx0XHRcdFx0fSxcclxuXHRcdFx0XHR7XHJcblx0XHRcdFx0XHR0eXBlOiAnaW1hZ2UnLFxyXG5cdFx0XHRcdFx0bmFtZTogJ+Wjgee6uC5qcGcnLFxyXG5cdFx0XHRcdFx0ZGF0YTogJ2h0dHBzOi8vaW1nLjNkbWdhbWUuY29tL3VwbG9hZHMvaW1hZ2VzL25ld3MvMjAyMDA1MTkvMTU4OTg4MDg0Nl83OTA2MTguanBnJyxcclxuXHRcdFx0XHRcdGNyZWF0ZV90aW1lOiAnMjAyMC0xMC0yMSAwODowMCcsXHJcblx0XHRcdFx0XHRkb3dubG9hZDoxMDBcclxuXHRcdFx0XHR9LFxyXG5cdFx0XHRcdHtcclxuXHRcdFx0XHRcdHR5cGU6ICd2aWRlbycsXHJcblx0XHRcdFx0XHRuYW1lOiAnUkFEV0lNUFMxLm1wNCcsXHJcblx0XHRcdFx0XHRkYXRhOiAnLi4vLi4vc3RhdGljL3ZpZGVvL1JBRFdJTVBTMS5tcDQnLFxyXG5cdFx0XHRcdFx0Y3JlYXRlX3RpbWU6ICcyMDIwLTEwLTIxIDA4OjAwJyxcclxuXHRcdFx0XHRcdGRvd25sb2FkOjUwXHJcblx0XHRcdFx0fVxyXG5cdFx0XHRdXHJcblx0XHR9O1xyXG5cdH0sXHJcblx0Y29tcG9uZW50czoge1xyXG5cdFx0Zkxpc3RcclxuXHR9LFxyXG5cdGNvbXB1dGVkOiB7XHJcblx0XHRkb3duaW5nKCkge1xyXG5cdFx0XHRyZXR1cm4gdGhpcy5saXN0LmZpbHRlcihpdGVtID0+IHtcclxuXHRcdFx0XHRyZXR1cm4gaXRlbS5kb3dubG9hZCA8IDEwMDtcclxuXHRcdFx0fSk7XHJcblx0XHR9LFxyXG5cdFx0ZG93bmVkKCkge1xyXG5cdFx0XHRyZXR1cm4gdGhpcy5saXN0LmZpbHRlcihpdGVtID0+IHtcclxuXHRcdFx0XHRyZXR1cm4gaXRlbS5kb3dubG9hZCA9PT0gMTAwO1xyXG5cdFx0XHR9KTtcclxuXHRcdH1cclxuXHR9LFxyXG5cdG1ldGhvZHM6IHtcclxuXHRcdGNoYW5nZVRhYihpbmRleCkge1xyXG5cdFx0XHR0aGlzLnRhYkluZGV4ID0gaW5kZXg7XHJcblx0XHR9XHJcblx0fVxyXG59O1xyXG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///43\n");
 
 /***/ }),
 /* 44 */

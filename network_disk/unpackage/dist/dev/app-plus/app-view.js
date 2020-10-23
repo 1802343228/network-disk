@@ -2375,7 +2375,191 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-uni-view", { attrs: { _i: 0 } })
+  return _c(
+    "v-uni-view",
+    {
+      staticClass: _vm._$g(0, "sc"),
+      staticStyle: { height: "100vh" },
+      attrs: { _i: 0 }
+    },
+    [
+      _c(
+        "v-uni-view",
+        {
+          staticClass: _vm._$g(1, "sc"),
+          staticStyle: { height: "100rpx" },
+          attrs: { _i: 1 }
+        },
+        _vm._l(_vm._$g(2, "f"), function(item, index, $20, $30) {
+          return _c(
+            "v-uni-view",
+            {
+              key: item,
+              staticClass: _vm._$g("2-" + $30, "sc"),
+              class: _vm._$g("2-" + $30, "c"),
+              attrs: { _i: "2-" + $30 },
+              on: {
+                click: function($event) {
+                  return _vm.$handleViewEvent($event)
+                }
+              }
+            },
+            [
+              _c(
+                "v-uni-text",
+                {
+                  staticClass: _vm._$g("3-" + $30, "sc"),
+                  attrs: { _i: "3-" + $30 }
+                },
+                [_vm._v(_vm._$g("3-" + $30, "t0-0"))]
+              ),
+              _c("v-uni-text", {
+                staticClass: _vm._$g("4-" + $30, "sc"),
+                class: _vm._$g("4-" + $30, "c"),
+                staticStyle: { height: "8tpx", width: "140rpx" },
+                attrs: { _i: "4-" + $30 }
+              })
+            ],
+            1
+          )
+        }),
+        1
+      ),
+      _c(
+        "v-uni-swiper",
+        {
+          staticClass: _vm._$g(5, "sc"),
+          attrs: { duration: 250, current: _vm._$g(5, "a-current"), _i: 5 },
+          on: {
+            change: function($event) {
+              return _vm.$handleViewEvent($event)
+            }
+          }
+        },
+        _vm._l(_vm._$g(6, "f"), function(item, index, $21, $31) {
+          return _c(
+            "v-uni-swiper-item",
+            {
+              key: item,
+              staticClass: _vm._$g("6-" + $31, "sc"),
+              attrs: { _i: "6-" + $31 }
+            },
+            [
+              _c(
+                "v-uni-scroll-view",
+                {
+                  staticClass: _vm._$g("7-" + $31, "sc"),
+                  attrs: { "scroll-y": "true", _i: "7-" + $31 }
+                },
+                [
+                  _c(
+                    "v-uni-view",
+                    {
+                      staticClass: _vm._$g("8-" + $31, "sc"),
+                      staticStyle: { height: "60rpx" },
+                      attrs: { _i: "8-" + $31 }
+                    },
+                    [_vm._v("文件下载至: storagr/xxxx/xxxx")]
+                  ),
+                  _c(
+                    "v-uni-view",
+                    {
+                      staticClass: _vm._$g("9-" + $31, "sc"),
+                      attrs: { _i: "9-" + $31 }
+                    },
+                    [_vm._v("下载中(" + _vm._$g("9-" + $31, "t0-0") + ")")]
+                  ),
+                  _vm._l(_vm._$g(10 + "-" + $31, "f"), function(
+                    item,
+                    index,
+                    $22,
+                    $32
+                  ) {
+                    return _c(
+                      "f-list",
+                      { key: item, attrs: { _i: "10-" + $31 + "-" + $32 } },
+                      [
+                        _c(
+                          "v-uni-view",
+                          {
+                            staticClass: _vm._$g("11-" + $31 + "-" + $32, "sc"),
+                            staticStyle: { height: "70rpx" },
+                            attrs: { _i: "11-" + $31 + "-" + $32 }
+                          },
+                          [
+                            _c("v-uni-text", {
+                              staticClass: _vm._$g(
+                                "12-" + $31 + "-" + $32,
+                                "sc"
+                              ),
+                              attrs: { _i: "12-" + $31 + "-" + $32 }
+                            }),
+                            _c(
+                              "v-uni-text",
+                              {
+                                staticClass: _vm._$g(
+                                  "13-" + $31 + "-" + $32,
+                                  "sc"
+                                ),
+                                attrs: { _i: "13-" + $31 + "-" + $32 }
+                              },
+                              [
+                                _vm._v(
+                                  _vm._$g("13-" + $31 + "-" + $32, "t0-0") + "%"
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _c("v-uni-progress", {
+                          attrs: {
+                            slot: "bottom",
+                            percent: _vm._$g(
+                              "14-" + $31 + "-" + $32,
+                              "a-percent"
+                            ),
+                            activeColor: "#009CFF",
+                            "stroke-width": 4,
+                            _i: "14-" + $31 + "-" + $32
+                          },
+                          slot: "bottom"
+                        })
+                      ],
+                      1
+                    )
+                  }),
+                  _c(
+                    "v-uni-view",
+                    {
+                      staticClass: _vm._$g("15-" + $31, "sc"),
+                      attrs: { _i: "15-" + $31 }
+                    },
+                    [_vm._v("下载完成" + _vm._$g("15-" + $31, "t0-0"))]
+                  ),
+                  _vm._l(_vm._$g(16 + "-" + $31, "f"), function(
+                    item,
+                    index,
+                    $23,
+                    $33
+                  ) {
+                    return _c("f-list", {
+                      key: item,
+                      attrs: { _i: "16-" + $31 + "-" + $33 }
+                    })
+                  })
+                ],
+                2
+              )
+            ],
+            1
+          )
+        }),
+        1
+      )
+    ],
+    1
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -2407,8 +2591,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
-
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+var _fList = _interopRequireDefault(__webpack_require__(/*! @/components/common/f-list.vue */ 24));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
 
   data: function data() {
@@ -2416,7 +2600,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       wxsProps: {} };
 
   },
-  components: {} };exports.default = _default;
+  components: {
+    'fList': _fList.default } };exports.default = _default;
 
 /***/ }),
 /* 55 */
