@@ -27,6 +27,10 @@
 			<text class="text-muted font">设置</text>
 			<image src="../../static/jiantou.png" mode="" style="width:40rpx;height: 40rpx;"></image>
 		</view>
+		<view @tap="handleLogin" class="flex justify-between p-3">
+			<text class="text-muted font">退出登录</text>
+			<image src="../../static/jiantou.png" mode="" style="width:40rpx;height: 40rpx;"></image>
+		</view>
 	</view>
 </template>
 
@@ -35,7 +39,13 @@ export default {
 	data() {
 		return {};
 	},
-	methods: {}
+	methods: {
+		handleLogin() {
+			uni.navigateTo({
+				url:'../login/login'
+			})
+		}
+	}
 };
 </script>
 
