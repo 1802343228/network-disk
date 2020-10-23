@@ -23,6 +23,9 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
 
+  config.auth = {
+    match:['/logout','upload','/getSize','file','/share'],
+  };
   config.security = {
     // 关闭 csrf
     csrf: {
