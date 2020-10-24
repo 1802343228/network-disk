@@ -223,7 +223,7 @@ module.exports = (appInfo) => {
 
   // 参数校验
   config.valpaarams = {
-    locaale: 'zh-cn',
+    locale: 'zh-cn',
     throwError: true,
   }
 
