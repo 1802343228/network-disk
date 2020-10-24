@@ -77,15 +77,27 @@ module.exports = (app) => {
       },
     })
 
-    let ids = files.map((item) => item.id)
-    if (ids.length > 0) {
-      app.model.File.destroy({
-        where: {
-          id: ids,
-          user_id: data.where.user_id,
-        },
-      })
-    }
+    console.log('批量删除后',data.where.id);
+        if(data.where.id){
+           app.model.File.destroy({
+                where:{
+                    file_id:data.where.id,
+                    user_id:data.where.user_id,
+                }
+             })
+        }
+
+
+  //   let ids = files.map((item) => item.id)
+  //   if (ids.length > 0) {
+  //     app.model.File.destroy({
+  //       where: {
+  //         id: ids,
+  //         user_id: data.where.user_id,
+  //       },
+  //     })
+  //   }
   })
-  return File
+   return File
+  
 }

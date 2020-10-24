@@ -214,6 +214,45 @@ class FileController extends Controller {
     ctx.apiSuccess(res)
   }
 
+  async delete() {
+    const { ctx,app } = this;
+    const user_id = ctx.authUser.id;
+
+    ctx.validate({
+      ids: {
+        required: true,
+        type: "string",
+        desc: "记录"
+      },
+    });
+
+    let { ids } = ctx.request.body;
+    ids = ids.split(',');
+    let files = await app.model.File.findAll({
+      where:{
+        id:ids,
+        user_id
+      }
+    });
+
+    let size = 0;
+    files.forEach(item => {
+      size = size + item.size
+    });
+    let res = await app.model.File.destroy({
+      where:{
+        id:ids,
+        user_id
+      }
+    });
+    if(res) {
+      size = ctx.authUser.used_size -size;
+      ctx.authUser.used_size = size>0?size:0;
+      ctx.authUser.save();
+    } 
+    ctx.apiSuccess(res);
+  }
+
 }
 
 module.exports = FileController
