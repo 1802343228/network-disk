@@ -253,6 +253,33 @@ class FileController extends Controller {
     ctx.apiSuccess(res);
   }
 
+  async search() {
+    const { ctx,app } = this;
+    const user_id = ctx.authUser.id;
+
+    ctx.validate({
+      keyword:{
+        required:true,
+        type:"string",
+        desc:"关键字"
+      },
+    })
+    let {keyword} = ctx.query
+    const Op = app.Sequelize.Op
+    let rows = await app.model.File.findAll({
+      where:{
+        name:{
+          [Op.like]:`%${keyword}%`
+        },
+        isdir:0,
+        user_id
+      }
+    })
+    ctx.apiSuccess({
+      rows
+    })
+  }
+
 }
 
 module.exports = FileController
