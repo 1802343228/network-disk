@@ -54,5 +54,8 @@ module.exports = app => {
         Share.belongsTo(app.model.File);
     }
 
+    Share.finAndCountAll = function() {
+        return Share
+    }
     return Share;
 };

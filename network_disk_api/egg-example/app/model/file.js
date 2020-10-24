@@ -66,6 +66,7 @@ module.exports = (app) => {
     updated_time: DATE,
   })
 
+  
   // 删除后
   File.afterBulkDestroy(async (data, option) => {
     console.log('删除后', data.where)
