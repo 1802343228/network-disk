@@ -116,6 +116,14 @@ class UserController extends Controller {
     ctx.apiSuccess('退出登录成功');
   }
 
+  async getSize() {
+    const { ctx,service} = this
+    return ctx.apiSuccess({
+      total_size:ctx.authUser.total_size,
+      user_size:ctx.authUser.user_size,
+    })
+  }
+
   // 验证密码
   checkPassword(password, hash_password) {
     const hmac = crypto.createHash('sha256', this.app.config.crypto.secret);
