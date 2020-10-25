@@ -113,48 +113,48 @@ export default {
 				}
 			],
 			list: [
-        {
-          type: 'dir',
-          name: '我的笔记',
-          create_time: '2020-10-21 08:00',
-          checked: false
-        },
-        {
-          type: 'image',
-          name: '壁纸.jpg',
-          data:'https://imgs.aixifan.com/o_1e09h5sut1uh39g56d1eqa1l4rv.jpg',
-		  checked: false
-        },
-		{
-			type: 'image',
-			name: '壁纸.jpg',
-			data:'https://img.3dmgame.com/uploads/images/news/20200519/1589880846_790618.jpg',
-			checked: false
-		},
-        {
-          type: 'video',
-          name: 'RADWIMPS1.mp4',
-          data: '../../static/video/RADWIMPS1.mp4',
-          checked: false
-        },
-		{
-		  type: 'video',
-		  name: 'RADWIMPS2.mp4',
-		  data: '../../static/video/RADWIMPS2.mp4',
-		  checked: false
-		},
-        {
-          type: 'text',
-          name: '记事本.txt',
-          create_time: '2020-10-21 08:00',
-          checked: false
-        },
-        {
-          type: 'none',
-          name: '压缩包.rar',
-          create_time: '2020-10-21 08:00',
-          checked: false
-        }
+  //       {
+  //         type: 'dir',
+  //         name: '我的笔记',
+  //         create_time: '2020-10-21 08:00',
+  //         checked: false
+  //       },
+  //       {
+  //         type: 'image',
+  //         name: '壁纸.jpg',
+  //         data:'https://imgs.aixifan.com/o_1e09h5sut1uh39g56d1eqa1l4rv.jpg',
+		//   checked: false
+  //       },
+		// {
+		// 	type: 'image',
+		// 	name: '壁纸.jpg',
+		// 	data:'https://img.3dmgame.com/uploads/images/news/20200519/1589880846_790618.jpg',
+		// 	checked: false
+		// },
+  //       {
+  //         type: 'video',
+  //         name: 'RADWIMPS1.mp4',
+  //         data: '../../static/video/RADWIMPS1.mp4',
+  //         checked: false
+  //       },
+		// {
+		//   type: 'video',
+		//   name: 'RADWIMPS2.mp4',
+		//   data: '../../static/video/RADWIMPS2.mp4',
+		//   checked: false
+		// },
+  //       {
+  //         type: 'text',
+  //         name: '记事本.txt',
+  //         create_time: '2020-10-21 08:00',
+  //         checked: false
+  //       },
+  //       {
+  //         type: 'none',
+  //         name: '压缩包.rar',
+  //         create_time: '2020-10-21 08:00',
+  //         checked: false
+  //       }
       ],
 			addList: [
 				{
@@ -272,14 +272,14 @@ export default {
 					return item.type === 'image'
 				})
 				uni.previewImage({
-					current:item.data,
-					urls:images.map(item=>item.data)
+					current:item.url,
+					urls:images.map(item=>item.url)
 				})
 				break;
 				
 				case 'video':
 				uni.navigateTo({
-					url:'../video/video?url='+item.data + '&title='+item.name,
+					url:'../video/video?url='+item.url + '&title='+item.name,
 				});
 				break;
 				default:
@@ -294,7 +294,31 @@ export default {
 		//打开sort排序框
 		openSortDialog() {
 			this.$refs.sort.open();
-		}
+		},
+		formatList(list) {
+			return list.map(item => {
+				let type = 'none';
+				if(item.isdir === 1) {
+					type = 'dir';
+				}else {
+					type = item.ext.split('/')[0] || 'none';
+				}
+				return{
+					type,
+					checked:false,
+					...item
+				};
+			});
+		},
+		getDate() {
+			this.$H.get('/file?file_id=0',{
+				token:true
+			})
+			.then(res => {
+				console.log(res);
+				this.list = this.formatList(res.rows);
+			});
+		},
 	},
 	computed: {
 		//选中列表
@@ -338,6 +362,9 @@ export default {
 				}
 			];
 		}
+	},
+	onLoad() {
+		this.getDate();
 	}
 };
 </script>
