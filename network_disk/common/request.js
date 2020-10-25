@@ -2,10 +2,11 @@ export default {
 	// 全局配置
 	common: {
 		// #ifndef H5
-		baseUrl: "http://127.0.0.1:7001",
+		// baseUrl: "https://oupai.utools.club/api",
 		// #endif
 		// #ifdef H5
-		baseUrl: "/api",
+		//baseUrl: "/api",
+		baseUrl: "https://oupai.utools.club",
 		// #endif
 		header: {
 			'Content-Type': 'application/json;charset=UTF-8',
@@ -145,6 +146,7 @@ export default {
 					reject(err)
 				}
 			})
+            //回调，更新上传进度
 			uploadTask.onProgressUpdate((res) => {
 				if (typeof onProgress === 'function') {
 					onProgress(res.progress)

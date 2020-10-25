@@ -47,6 +47,7 @@
 </template>
 
 <script>
+	import $H from '../../common/request.js'
 export default {
 	data() {
 		return {
@@ -63,11 +64,30 @@ export default {
 			this.type = this.type === 'login' ? 'reg' : 'login';
 		},
 		handleClick() {
-			if (this.type === 'login') {
-				uni.switchTab({
-					url: '../index/index'
+			//根据type切换msg
+			let msg = this.type === 'login' ? '登录' : '注册';
+			//调用封装的请求库 根据type请求接口
+			console.log(this.$H)
+			this.$H.post('/'+this.type,this.form).then(res => {
+				uni.showToast({
+					title:msg+'成功',
+					icon:'none'
 				});
-			}
+				if(this.type === 'login') {
+					this.$store.dispatch('login',res).then(result =>{
+						uni.switchTab({
+							url:'../index/index'
+						});
+					});
+				}else {
+					this.form = {
+						username:'',
+						password:'',
+						repassword:''
+					};
+					this.changeType();
+				}
+			})
 		}
 	}
 };

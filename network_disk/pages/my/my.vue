@@ -45,6 +45,9 @@ export default {
 				url:'../login/login'
 			})
 		}
+	},
+	onLoad() {
+		console.log(this.$store.state.user)
 	}
 };
 </script>
