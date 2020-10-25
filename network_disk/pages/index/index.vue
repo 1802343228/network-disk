@@ -2,7 +2,18 @@
 	<view>
 		<nav-bar>
 			<template v-if="checkCount === 0">
-				<text slot="left" class="font-md ml-3">首页</text>
+				<template solt="left">
+					<view
+						style="width: 60rpx;height: 60rpx;;"
+						class="flex align-center justify-center bg-light rounded-circle ml-3"
+						hover-class="bg-hover-light"
+						@tap="backUp"
+						v-if="current"
+					>
+						<text class="iconfont icon-fanhui"></text>
+					</view>
+					<text class="font-md ml-3">{{ current ? current.name : '首页' }}</text>
+				</template>
 				<template slot="right">
 					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle ml-5" @tap="openAddDialog">
 						<text class="iconfont icon-zengjia"></text>
@@ -27,10 +38,7 @@
 				<input style="height: 70rpx;padding-left: 70rpx;" type="text" class="bg-light font-md rounded-circle" placeholder="搜索网盘文件" />
 			</view>
 		</view>
-		<f-list 
-		v-for="(item, index) in list" 
-		:key="index" :item="item" 
-		:index="index" @select="select" @click="doEvent(item)"></f-list>
+		<f-list v-for="(item, index) in list" :key="index" :item="item" :index="index" @select="select" @click="doEvent(item)"></f-list>
 
 		<!-- 底部操作条 -->
 		<!-- 选中个数大于0才会出现操作条 -->
@@ -67,19 +75,19 @@
 				</view>
 			</view>
 		</uni-popup>
-		
+
 		<!-- 排序框，底部弹出，遍历排序操作数组 -->
 		<uni-popup ref="sort" type="bottom">
 			<view class="bg-white">
 				<view
-				v-for="(item,index) in sortOptions"
-				:key="index"
-				class="flex align-center justify-center py-3 font border-bottom border-light-secondary"
-				:class="index === sortIndex ? 'text-main' : 'text-dark' "
-				hover-class="bg-light"
-				@click="changeSort(index)"
+					v-for="(item, index) in sortOptions"
+					:key="index"
+					class="flex align-center justify-center py-3 font border-bottom border-light-secondary"
+					:class="index === sortIndex ? 'text-main' : 'text-dark'"
+					hover-class="bg-light"
+					@click="changeSort(index)"
 				>
-				{{item.name}}
+					{{ item.name }}
 				</view>
 			</view>
 		</uni-popup>
@@ -101,61 +109,64 @@ export default {
 	},
 	data() {
 		return {
+			dirs: [],
 			renameValue: '',
-			newdirname:'',
-			sortIndex:0,
-			sortOptions:[
+			newdirname: '',
+			sortIndex: 0,
+			sortOptions: [
 				{
-					name:'按名称排序'
+					name: '按名称排序',
+					key: 'name'
 				},
 				{
-					name:'按时间排序'
+					name: '按时间排序',
+					key: 'created_time'
 				}
 			],
 			list: [
-  //       {
-  //         type: 'dir',
-  //         name: '我的笔记',
-  //         create_time: '2020-10-21 08:00',
-  //         checked: false
-  //       },
-  //       {
-  //         type: 'image',
-  //         name: '壁纸.jpg',
-  //         data:'https://imgs.aixifan.com/o_1e09h5sut1uh39g56d1eqa1l4rv.jpg',
-		//   checked: false
-  //       },
-		// {
-		// 	type: 'image',
-		// 	name: '壁纸.jpg',
-		// 	data:'https://img.3dmgame.com/uploads/images/news/20200519/1589880846_790618.jpg',
-		// 	checked: false
-		// },
-  //       {
-  //         type: 'video',
-  //         name: 'RADWIMPS1.mp4',
-  //         data: '../../static/video/RADWIMPS1.mp4',
-  //         checked: false
-  //       },
-		// {
-		//   type: 'video',
-		//   name: 'RADWIMPS2.mp4',
-		//   data: '../../static/video/RADWIMPS2.mp4',
-		//   checked: false
-		// },
-  //       {
-  //         type: 'text',
-  //         name: '记事本.txt',
-  //         create_time: '2020-10-21 08:00',
-  //         checked: false
-  //       },
-  //       {
-  //         type: 'none',
-  //         name: '压缩包.rar',
-  //         create_time: '2020-10-21 08:00',
-  //         checked: false
-  //       }
-      ],
+				//       {
+				//         type: 'dir',
+				//         name: '我的笔记',
+				//         create_time: '2020-10-21 08:00',
+				//         checked: false
+				//       },
+				//       {
+				//         type: 'image',
+				//         name: '壁纸.jpg',
+				//         data:'https://imgs.aixifan.com/o_1e09h5sut1uh39g56d1eqa1l4rv.jpg',
+				//   checked: false
+				//       },
+				// {
+				// 	type: 'image',
+				// 	name: '壁纸.jpg',
+				// 	data:'https://img.3dmgame.com/uploads/images/news/20200519/1589880846_790618.jpg',
+				// 	checked: false
+				// },
+				//       {
+				//         type: 'video',
+				//         name: 'RADWIMPS1.mp4',
+				//         data: '../../static/video/RADWIMPS1.mp4',
+				//         checked: false
+				//       },
+				// {
+				//   type: 'video',
+				//   name: 'RADWIMPS2.mp4',
+				//   data: '../../static/video/RADWIMPS2.mp4',
+				//   checked: false
+				// },
+				//       {
+				//         type: 'text',
+				//         name: '记事本.txt',
+				//         create_time: '2020-10-21 08:00',
+				//         checked: false
+				//       },
+				//       {
+				//         type: 'none',
+				//         name: '压缩包.rar',
+				//         create_time: '2020-10-21 08:00',
+				//         checked: false
+				//       }
+			],
 			addList: [
 				{
 					icon: 'icon-file-b-6',
@@ -179,16 +190,6 @@ export default {
 				}
 			]
 		};
-	},
-	onLoad: function() {
-		// uni.request({
-		// 	url: 'http://localhost:7001/list',
-		// 	method: 'GET',
-		// 	success: res => {
-		// 		this.list = res.data.data;
-		// 		console.log(this.list[0].type);
-		// 	}
-		// });
 	},
 	methods: {
 		select(e) {
@@ -238,89 +239,131 @@ export default {
 		},
 		handleAddEvent(item) {
 			this.$refs.add.close();
-			switch(item.name) {
+			switch (item.name) {
 				case '新建文件夹':
-				this.$refs.newdir.open(close => {
-					if(this.newdirname == '') {
-						return uni.showToast({
-							title:'文件夹名称不能为空',
-							icon:'none'
-						});
-					}
-					//模拟请求服务器，这里先增加到List数组中
-					this.list.push({
-						type:'dir',
-						name:this.newdirname,
-						create_time:'2020-10-23',
-						checked:false
+					this.$refs.newdir.open(close => {
+						if (this.newdirname == '') {
+							return uni.showToast({
+								title: '文件夹名称不能为空',
+								icon: 'none'
+							});
+						}
+						//模拟请求服务器，这里先增加到List数组中
+						this.$H.post('/file/createdir',{
+							file_id:this.file_id,
+							name:this.newdirname
+						},{token:true}
+						).then(res => {
+							this.getDate();
+							uni.showToast({
+								title: '新建文件夹成功',
+								icon: 'none'
+							});
+						})
+						
+						close();
+						this.newdirname = '';
 					});
-					uni.showToast({
-						title:'新建文件夹成功',
-						icon:'none'
-					});
-					close();
-				});
-				break;
-			default:
-			    break;
+					break;
+				default:
+					break;
 			}
 		},
 		doEvent(item) {
-			switch(item.type) {
+			switch (item.type) {
 				case 'image':
-				let images = this.list.filter(item => {
-					return item.type === 'image'
-				})
-				uni.previewImage({
-					current:item.url,
-					urls:images.map(item=>item.url)
-				})
-				break;
-				
+					let images = this.list.filter(item => {
+						return item.type === 'image';
+					});
+					uni.previewImage({
+						current: item.url,
+						urls: images.map(item => item.url)
+					});
+					break;
+
 				case 'video':
-				uni.navigateTo({
-					url:'../video/video?url='+item.url + '&title='+item.name,
-				});
-				break;
+					uni.navigateTo({
+						url: '../video/video?url=' + item.url + '&title=' + item.name
+					});
+					break;
 				default:
-				break;
+					this.dirs.push({
+						id: item.id,
+						name: item.name
+					});
+					this.getDate();
+					uni.setStorage({
+						key: 'dirs',
+						data: JSON.stringify(this.dirs)
+					});
+					break;
 			}
 		},
 		//根据排序类型的索引切换不同的排序，关闭sort排序框
-		changeSort(index){
+		changeSort(index) {
+			// this.sortIndex = index;
+			// this.$refs.sort.close();
 			this.sortIndex = index;
+			this.getDate();
 			this.$refs.sort.close();
 		},
 		//打开sort排序框
 		openSortDialog() {
 			this.$refs.sort.open();
 		},
+		//将数据格式化为需要显示的样子
 		formatList(list) {
 			return list.map(item => {
 				let type = 'none';
-				if(item.isdir === 1) {
+				if (item.isdir === 1) {
 					type = 'dir';
-				}else {
+				} else {
 					type = item.ext.split('/')[0] || 'none';
 				}
-				return{
+				return {
 					type,
-					checked:false,
+					checked: false,
 					...item
 				};
 			});
 		},
 		getDate() {
-			this.$H.get('/file?file_id=0',{
-				token:true
-			})
-			.then(res => {
-				console.log(res);
-				this.list = this.formatList(res.rows);
-			});
+			console.log(this.file_id + '>>>>>>>>');
+			let orderby = this.sortOptions[this.sortIndex].key;
+			console.log(orderby + '&&&&&');
+			this.$H
+				.get(`/file?file_id=${this.file_id}&orderby=${orderby}`, {
+					token: true
+				})
+				.then(res => {
+					console.log(res);
+					this.list = this.formatList(res.rows);
+				});
 		},
+		backUp() {
+			this.dirs.pop();
+			this.getDate();
+			uni.setStorage({
+				key: 'dirs',
+				data: JSON.stringify(this.dirs)
+			});
+		}
 	},
 	computed: {
+		file_id() {
+			let l = this.dirs.length;
+			if (l === 0) {
+				return 0;
+			}
+			return this.dirs[l - 1].id;
+		},
+		current() {
+			let l = this.dirs.length;
+			if (l === 0) {
+				return false;
+			}
+			return this.dirs[l - 1];
+		},
 		//选中列表
 		checkList() {
 			return this.list.filter(item => item.checked);
@@ -364,6 +407,11 @@ export default {
 		}
 	},
 	onLoad() {
+		// this.getDate();
+		let dirs = uni.getStorageSync('dirs');
+		if (dirs) {
+			this.dirs = JSON.parse(dirs);
+		}
 		this.getDate();
 	}
 };
