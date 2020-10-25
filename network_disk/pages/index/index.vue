@@ -206,8 +206,26 @@ export default {
 			switch (item.name) {
 				case '删除':
 					this.$refs.delete.open(close => {
+						uni.showLoading({
+							title:'删除中...',
+							mask:false
+						});
+						let ids = this.checkList.map(item => item.id).join(',');
+						this.$H.post('/file/delete',{
+							ids
+						},{token:true}).then(res=>{
+							this.getDate();
+							uni.showToast({
+								title:'删除成功',
+								icon:'none'
+							});
+							uni.hideLoading();
+						})
+						.catch(err => {
+							uni.hideLoading();
+						})
 						//对List进行过滤，留下未被选中的
-						this.list = this.list.filter(item => !item.checked);
+						//this.list = this.list.filter(item => !item.checked);
 						close();
 						uni.showToast({
 							title: '删除成功',
