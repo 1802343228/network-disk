@@ -42,7 +42,7 @@ export default new Vuex.Store({
 		initList({
 			state
 		}){
-			if(stste.user) {
+			if(state.user) {
 				let d = uni.getStorageSync("downlist_"+state.user.id)
 				let u = uni.getStorageSync("uploadList_"+state.user.id)
 				

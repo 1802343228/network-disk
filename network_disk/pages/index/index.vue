@@ -431,7 +431,6 @@ export default {
 				console.log(res)
 				this.getData();
 			});
-			this.getData();
 		}
 	},
 	computed: {
