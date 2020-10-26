@@ -248,6 +248,7 @@ var render = function() {
                         [
                           _c("v-uni-text", {
                             staticClass: _vm._$g(5, "sc"),
+                            staticStyle: { float: "left" },
                             attrs: { _i: 5 }
                           })
                         ],

@@ -10,7 +10,7 @@
 						@tap="backUp"
 						v-if="current"
 					>
-						<text class="iconfont icon-fanhui"></text>
+						<text style="float: left;" class="iconfont icon-fanhui"></text>
 					</view>
 					<text class="font-md ml-3">{{ current ? current.name : '首页' }}</text>
 				</template>
@@ -270,6 +270,14 @@ export default {
 		handleAddEvent(item) {
 			this.$refs.add.close();
 			switch (item.name) {
+				case '上传图片':
+				    uni.chooseImage({
+					  count:9,
+					   success:res => {res.tempFiles.forEach(item => {
+							this.upload(item,'image');
+						});}
+				});
+				break;
 				case '新建文件夹':
 					this.$refs.newdir.open(close => {
 						if (this.newdirname == '') {
@@ -295,6 +303,7 @@ export default {
 						this.newdirname = '';
 					});
 					break;
+					
 				default:
 					break;
 			}
@@ -387,6 +396,42 @@ export default {
 			}).then(res=>{
 				this.list = this.formatList(res.rows);
 			})
+		},
+		//生成唯一ID
+		getID(length) {
+			return Number(
+			Math.random().toString().substr(3,length)+Date.now()
+			).toString(36);
+		},
+		upload(file,type) {
+			let t = type;
+			const key = this.getID(8);
+			let obj = {
+				name:file.name,
+				type:t,
+				size:file.size,
+				key,
+				progress:0,
+				status:true,
+				create_time:new Date().getTime()
+			};
+			this.$store.dispatch('createUploadJob',obj);
+			this.$H.upload('/upload?file_id='+this.file_id,{
+				filePath:file.path
+			},
+			p=>{
+				this.$store.dispatch('updateUploadJob',{
+					status:true,
+					progress:p,
+					key
+				});
+			}
+			).then(res => {
+				console.log("1111111111111")
+				console.log(res)
+				this.getData();
+			});
+			this.getData();
 		}
 	},
 	computed: {
@@ -413,7 +458,7 @@ export default {
 			return this.checkList.length;
 		},
 		//操作菜单
-		actions() {
+		actions() {	
 			if (this.checkCount > 1) {
 				return [
 					{

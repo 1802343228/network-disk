@@ -2,11 +2,11 @@ export default {
 	// 全局配置
 	common: {
 		// #ifndef H5
-		// baseUrl: "https://oupai.utools.club/api",
+		 baseUrl: "https://oupai.utools.club",
 		// #endif
 		// #ifdef H5
-		//baseUrl: "/api",
-		baseUrl: "https://oupai.utools.club",
+		baseUrl: "/api",
+		//baseUrl: "https://oupai.utools.club",
 		// #endif
 		header: {
 			'Content-Type': 'application/json;charset=UTF-8',
