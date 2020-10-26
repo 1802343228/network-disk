@@ -114,5 +114,33 @@ export default new Vuex.Store({
 				state.downlist = []
 			}
 		},
+		getShareUrl({
+			state
+		}) {
+			// #ifndef H5
+			uni.getClipboardData({
+				success:(res) => {
+					if(res.data.includes('https://oupai.utools.club')) {
+						let key = res.data.substring(res.data.lastIndexOf('\/') +1,res.data.length)
+						if(!key) {
+							return
+						}
+						uni.showModal({
+							content:'检测到有分享内容，是否打开？',
+							success:(res) => {
+								if(res.confirm) {
+									uni.navigateTo({
+										url:"/pages/shareurl/shareurl?key="+key
+									})
+									uni.setClipboardData({
+										data:''
+									});
+								}
+							}
+						});
+					}
+				}
+			});
+		}
 	}
 })

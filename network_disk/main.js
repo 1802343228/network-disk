@@ -8,10 +8,24 @@ Vue.prototype.$store  = store
 
 Vue.config.productionTip = false
 
+Vue.prototype.authMethod = (callback) => {
+	if(!store.state.token) {
+		uni.showToast({
+			title:'请先登录',
+			icon:'none'
+		});
+		return uni.navigateTo({
+			url:'/pages/login/login',
+		});
+	}
+	callback()
+}
+
 App.mpType = 'app'
 
 const app = new Vue({
 	store,
     ...App
 })
+
 app.$mount()

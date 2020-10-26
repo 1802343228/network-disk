@@ -2,10 +2,15 @@
 	export default {
 		onLaunch:function(){
 		console.log('APP Launch')
-		this.$store.dispatch('initUser')
+		this.$store.dispatch('initUser');
+		this.$store.dispatch('initList');
 		},
 		onShow: function() {
 			console.log('App Show')
+			if(this.$store.state.user) {
+				console.log("onshowwwwwwwww")
+				this.$store.dispatch('getShareUrl');
+			}
 		},
 		onHide: function() {
 			console.log('App Hide')

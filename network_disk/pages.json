@@ -52,6 +52,27 @@
             }
             
         }
+        ,{
+            "path" : "pages/shareurl/shareurl",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"app-plus":{
+					"titleNView":false
+				}
+            }
+            
+        }
+        ,{
+            "path" : "pages/save/save",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "保存目录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
