@@ -19,20 +19,20 @@
 				<scroll-view scroll-y="true" class="flex-1">
 					<!-- 下载列表 -->
 					<template v-if="index === 0">
-						<!-- <view style="height: 60rpx;" class="bg-light flex align-center font-sm px-2 text-muted">文件下载至: storagr/xxxx/xxxx</view>
-						<view class="p-2 border-bottom border-light-secondary font text-muted">下载中({{ downing.length }})</view> -->
+						<view style="height: 60rpx;" class="bg-light flex align-center font-sm px-2 text-muted">文件下载至: _doc/uniapp_temp_1603680037252/download</view>
+						<view class="p-2 border-bottom border-light-secondary font text-muted">下载中({{ downing.length }})</view>
 						<!-- 同级还有f-list绑定了key为index，会冲突，所以加上不同的前缀区分，否则会报错 -->
-						<!-- <f-list v-for="(item, index) in downing" :key="'i' + index" :item="item" :index="index">
+						<f-list v-for="(item, index) in downing" :key="'i' + index" :item="item" :index="index">
 							<view style="height: 70rpx;" class="flex align-center text-main">
 								<text class="iconfont icon-zanting"></text>
-								<text class="ml-1">{{ item.download }}%</text>
-							</view> -->
+								<text class="ml-1">{{ item.progress }}%</text>
+							</view>
 							<!-- 进度条组件，uniapp自带 -->
-							<!-- <progress slot="bottom" :percent="item.download" activeColor="#009CFF" :stroke-width="4" />
+							<progress slot="bottom" :percent="item.progress" activeColor="#009CFF" :stroke-width="4" />
 						</f-list>
 
 						<view class="p-2 border-bottom border-light-secondary font text-muted">下载完成{{ downed.length }}</view>
-						<f-list v-for="(item, index) in downed" :key="'d' + index" :item="item" :index="index" :showRight="false"></f-list> -->
+						<f-list v-for="(item, index) in downed" :key="'d' + index" :item="item" :index="index" :showRight="false"></f-list>
 					</template>
 
 					<!-- 上传列表 -->
@@ -115,6 +115,20 @@ export default {
 	methods: {
 		changeTab(index) {
 			this.tabIndex = index;
+		},
+		onNavigaationBarButtonTap() {
+			uni.showModal({
+				content:'是否要清除传输记录？',
+				success:res => {
+					if(res.confirm) {
+						this.$store.dispatch('clearList');
+						uni.showToast({
+							title:'清除成功',
+							icon:'none'
+						});
+					}
+				}
+			});
 		}
 	}
 };
