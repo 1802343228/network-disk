@@ -12,7 +12,7 @@
 					>
 						<text style="float: left;" class="iconfont icon-fanhui"></text>
 					</view>
-					<text class="font-md ml-3">{{ current ? current.name : '首页' }}</text>
+					<text class="font-md ml-3">{{ current ? current.name : "首页" }}</text>
 				</template>
 				<template slot="right">
 					<view style="width: 60rpx;height: 60rpx;" class="flex align-center justify-center bg-light rounded-circle ml-5" @tap="openAddDialog">
@@ -96,10 +96,10 @@
 </template>
 
 <script>
-import navBar from '../../components/common/nav-bar.vue';
-import fList from '../../components/common/f-list.vue';
-import fDialog from '@/components/common/f-dialog.vue';
-import uniPopup from '@/components/uni-ui/uni-popup/uni-popup.vue';
+import navBar from "../../components/common/nav-bar.vue";
+import fList from "../../components/common/f-list.vue";
+import fDialog from "@/components/common/f-dialog.vue";
+import uniPopup from "@/components/uni-ui/uni-popup/uni-popup.vue";
 
 export default {
 	components: {
@@ -111,17 +111,17 @@ export default {
 	data() {
 		return {
 			dirs: [],
-			renameValue: '',
-			newdirname: '',
+			renameValue: "",
+			newdirname: "",
 			sortIndex: 0,
 			sortOptions: [
 				{
-					name: '按名称排序',
-					key: 'name'
+					name: "按名称排序",
+					key: "name"
 				},
 				{
-					name: '按时间排序',
-					key: 'created_time'
+					name: "按时间排序",
+					key: "created_time"
 				}
 			],
 			list: [
@@ -170,24 +170,24 @@ export default {
 			],
 			addList: [
 				{
-					icon: 'icon-file-b-6',
-					color: 'text-success',
-					name: '上传图片'
+					icon: "icon-file-b-6",
+					color: "text-success",
+					name: "上传图片"
 				},
 				{
-					icon: 'icon-file-b-9',
-					color: 'text-primary',
-					name: '上传视频'
+					icon: "icon-file-b-9",
+					color: "text-primary",
+					name: "上传视频"
 				},
 				{
-					icon: 'icon-file-b-8',
-					color: 'text-muted',
-					name: '上传文件'
+					icon: "icon-file-b-8",
+					color: "text-muted",
+					name: "上传文件"
 				},
 				{
-					icon: 'icon-file-b-2',
-					color: 'text-warning',
-					name: '新建文件夹'
+					icon: "icon-file-b-2",
+					color: "text-warning",
+					name: "新建文件夹"
 				}
 			]
 		};
@@ -205,59 +205,74 @@ export default {
 		//处理底部操作时间
 		handleBottomEvent(item) {
 			switch (item.name) {
-				case '删除':
+				case "删除":
 					this.$refs.delete.open(close => {
 						uni.showLoading({
-							title:'删除中...',
-							mask:false
+							title: "删除中...",
+							mask: false
 						});
-						let ids = this.checkList.map(item => item.id).join(',');
-						this.$H.post('/file/delete',{
-							ids
-						},{token:true}).then(res=>{
-							this.getDate();
-							uni.showToast({
-								title:'删除成功',
-								icon:'none'
+						let ids = this.checkList.map(item => item.id).join(",");
+						this.$H
+							.post(
+								"/file/delete",
+								{
+									ids
+								},
+								{ token: true }
+							)
+							.then(res => {
+								this.getDate();
+								uni.showToast({
+									title: "删除成功",
+									icon: "none"
+								});
+								uni.hideLoading();
+							})
+							.catch(err => {
+								uni.hideLoading();
 							});
-							uni.hideLoading();
-						})
-						.catch(err => {
-							uni.hideLoading();
-						})
 						//对List进行过滤，留下未被选中的
 						//this.list = this.list.filter(item => !item.checked);
 						close();
 						uni.showToast({
-							title: '删除成功',
-							icon: 'none'
+							title: "删除成功",
+							icon: "none"
 						});
 					});
 					break;
-				case '重命名':
+				case "重命名":
 					//只能对单个文件进行，所以取this.checkList[0],也就是选中的唯一元素
 					this.renameValue = this.checkList[0].name;
 					this.$refs.rename.open(close => {
-						if (this.renameValue == '') {
+						if (this.renameValue == "") {
 							return uni.showToast({
-								title: '文件名称不能为空',
-								icon: 'none'
+								title: "文件名称不能为空",
+								icon: "none"
 							});
 						}
-						console.log(this.checkList[0].id + '>>>>>>>>'+this.file_id);
-						this.$H.post('/file/rename',{
-							id:this.checkList[0].id,
-							file_id:this.file_id,
-							name:this.renameValue
-						},{token:true}).then(res => {
-							this.checkList[0].name = this.renameValue;
-							uni.showToast({
-								title:'重命名成功',
-								icon:'none'
+						console.log(this.checkList[0].id + ">>>>>>>>" + this.file_id);
+						this.$H
+							.post(
+								"/file/rename",
+								{
+									id: this.checkList[0].id,
+									file_id: this.file_id,
+									name: this.renameValue
+								},
+								{ token: true }
+							)
+							.then(res => {
+								this.checkList[0].name = this.renameValue;
+								uni.showToast({
+									title: "重命名成功",
+									icon: "none"
+								});
 							});
-						});
 						close();
 					});
+					break;
+				case "下载":
+					this.download();
 					break;
 				default:
 					break;
@@ -270,49 +285,56 @@ export default {
 		handleAddEvent(item) {
 			this.$refs.add.close();
 			switch (item.name) {
-				case '上传图片':
-				    uni.chooseImage({
-					  count:9,
-					   success:res => {res.tempFiles.forEach(item => {
-							this.upload(item,'image');
-						});}
-				});
-				break;
-				case '新建文件夹':
+				case "上传图片":
+					uni.chooseImage({
+						count: 9,
+						success: res => {
+							res.tempFiles.forEach(item => {
+								this.upload(item, "image");
+							});
+						}
+					});
+					break;
+				case "新建文件夹":
 					this.$refs.newdir.open(close => {
-						if (this.newdirname == '') {
+						if (this.newdirname == "") {
 							return uni.showToast({
-								title: '文件夹名称不能为空',
-								icon: 'none'
+								title: "文件夹名称不能为空",
+								icon: "none"
 							});
 						}
 						//模拟请求服务器，这里先增加到List数组中
-						this.$H.post('/file/createdir',{
-							file_id:this.file_id,
-							name:this.newdirname
-						},{token:true}
-						).then(res => {
-							this.getDate();
-							uni.showToast({
-								title: '新建文件夹成功',
-								icon: 'none'
+						this.$H
+							.post(
+								"/file/createdir",
+								{
+									file_id: this.file_id,
+									name: this.newdirname
+								},
+								{ token: true }
+							)
+							.then(res => {
+								this.getDate();
+								uni.showToast({
+									title: "新建文件夹成功",
+									icon: "none"
+								});
 							});
-						})
-						
+
 						close();
-						this.newdirname = '';
+						this.newdirname = "";
 					});
 					break;
-					
+
 				default:
 					break;
 			}
 		},
 		doEvent(item) {
 			switch (item.type) {
-				case 'image':
+				case "image":
 					let images = this.list.filter(item => {
-						return item.type === 'image';
+						return item.type === "image";
 					});
 					uni.previewImage({
 						current: item.url,
@@ -320,9 +342,9 @@ export default {
 					});
 					break;
 
-				case 'video':
+				case "video":
 					uni.navigateTo({
-						url: '../video/video?url=' + item.url + '&title=' + item.name
+						url: "../video/video?url=" + item.url + "&title=" + item.name
 					});
 					break;
 				default:
@@ -332,7 +354,7 @@ export default {
 					});
 					this.getDate();
 					uni.setStorage({
-						key: 'dirs',
+						key: "dirs",
 						data: JSON.stringify(this.dirs)
 					});
 					break;
@@ -353,11 +375,11 @@ export default {
 		//将数据格式化为需要显示的样子
 		formatList(list) {
 			return list.map(item => {
-				let type = 'none';
+				let type = "none";
 				if (item.isdir === 1) {
-					type = 'dir';
+					type = "dir";
 				} else {
-					type = item.ext.split('/')[0] || 'none';
+					type = item.ext.split("/")[0] || "none";
 				}
 				return {
 					type,
@@ -367,9 +389,9 @@ export default {
 			});
 		},
 		getDate() {
-			console.log(this.file_id + '>>>>>>>>');
+			console.log(this.file_id + ">>>>>>>>");
 			let orderby = this.sortOptions[this.sortIndex].key;
-			console.log(orderby + '&&&&&');
+			console.log(orderby + "&&&&&");
 			this.$H
 				.get(`/file?file_id=${this.file_id}&orderby=${orderby}`, {
 					token: true
@@ -383,55 +405,107 @@ export default {
 			this.dirs.pop();
 			this.getDate();
 			uni.setStorage({
-				key: 'dirs',
+				key: "dirs",
 				data: JSON.stringify(this.dirs)
 			});
 		},
 		search(e) {
-			if(e.detail.value == '' ) {
+			if (e.detail.value == "") {
 				return this.getDate();
 			}
-			this.$H.get('/file/search?keyword='+e.detail.value,{
-				token:true
-			}).then(res=>{
-				this.list = this.formatList(res.rows);
-			})
+			this.$H
+				.get("/file/search?keyword=" + e.detail.value, {
+					token: true
+				})
+				.then(res => {
+					this.list = this.formatList(res.rows);
+				});
 		},
 		//生成唯一ID
 		getID(length) {
 			return Number(
-			Math.random().toString().substr(3,length)+Date.now()
+				Math.random()
+					.toString()
+					.substr(3, length) + Date.now()
 			).toString(36);
 		},
-		upload(file,type) {
+		upload(file, type) {
 			let t = type;
 			const key = this.getID(8);
 			let obj = {
-				name:file.name,
-				type:t,
-				size:file.size,
+				name: file.name,
+				type: t,
+				size: file.size,
 				key,
-				progress:0,
-				status:true,
-				create_time:new Date().getTime()
+				progress: 0,
+				status: true,
+				create_time: new Date().getTime()
 			};
-			this.$store.dispatch('createUploadJob',obj);
-			this.$H.upload('/upload?file_id='+this.file_id,{
-				filePath:file.path
-			},
-			p=>{
-				this.$store.dispatch('updateUploadJob',{
-					status:true,
-					progress:p,
-					key
+			this.$store.dispatch("createUploadJob", obj);
+			this.$H
+				.upload(
+					"/upload?file_id=" + this.file_id,
+					{
+						filePath: file.path
+					},
+					p => {
+						this.$store.dispatch("updateUploadJob", {
+							status: true,
+							progress: p,
+							key
+						});
+					}
+				)
+				.then(res => {
+					console.log("1111111111111");
+					console.log(res);
+					this.getData();
 				});
-			}
-			).then(res => {
-				console.log("1111111111111")
-				console.log(res)
-				this.getData();
+		},
+		download() {
+			this.checkList.forEach(item => {
+				if(item.isdir === 0) {
+					const key = this.getID(8);
+					
+					let obj = {
+						name:item.name,
+						type:item.type,
+						size:item.size,
+						key,
+						progress:0,
+						status:true,
+						create_time:new Date().getTime()
+					};
+					this.$store.dispatch('createDownLoadJob',obj);
+					let url = item.url;
+					let d = uni.downloadFile({
+						url,
+						success:res => {
+							if(res.statusCode === 200){
+								console.log('下载成功',res);
+								//#ifdef H5
+								uni.saveFile({
+									tempFilePath:item.item.tempFilePath
+								});
+								// #endif
+							}
+						}
+					});
+					d.onProgressUpdate(res => {
+						this.$store.dispatch('updateDownLoadJob',{
+							progress:res.progress,
+							status:true,
+							key
+						});
+					});
+				}
 			});
-		}
+			uni.showToast({
+				title:'已加入下载任务',
+				icon:'none'
+			});
+			this.handleCheckAll(false);
+		},
 	},
 	computed: {
 		file_id() {
@@ -457,42 +531,42 @@ export default {
 			return this.checkList.length;
 		},
 		//操作菜单
-		actions() {	
+		actions() {
 			if (this.checkCount > 1) {
 				return [
 					{
-						icon: 'icon-xiazai',
-						name: '下载'
+						icon: "icon-xiazai",
+						name: "下载"
 					},
 					{
-						icon: 'icon-shanchu',
-						name: '删除'
+						icon: "icon-shanchu",
+						name: "删除"
 					}
 				];
 			}
 			return [
 				{
-					icon: 'icon-xiazai',
-					name: '下载'
+					icon: "icon-xiazai",
+					name: "下载"
 				},
 				{
-					icon: 'icon-fenxiang-1',
-					name: '分享'
+					icon: "icon-fenxiang-1",
+					name: "分享"
 				},
 				{
-					icon: 'icon-shanchu',
-					name: '删除'
+					icon: "icon-shanchu",
+					name: "删除"
 				},
 				{
-					icon: 'icon-chongmingming',
-					name: '重命名'
+					icon: "icon-chongmingming",
+					name: "重命名"
 				}
 			];
 		}
 	},
 	onLoad() {
 		// this.getDate();
-		let dirs = uni.getStorageSync('dirs');
+		let dirs = uni.getStorageSync("dirs");
 		if (dirs) {
 			this.dirs = JSON.parse(dirs);
 		}

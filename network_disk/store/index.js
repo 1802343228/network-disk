@@ -82,5 +82,28 @@ export default new Vuex.Store({
 				})
 			}
 		},
+		createDownLoadJob({
+			state
+		},obj) {
+			state.downlist.unshift(obj)
+			uni.setStorage({
+				key:"downlist_"+state.user.id,
+				data:JSON.stringify(state.downlist)
+			})
+		},
+		//更新下载任务进度
+		updateDownLoadJob({
+			state
+		},obj){
+			let i = state.downlist.findIndex(item => item.key === obj.key)
+			if(i !== -1){
+				state.downlist[i].progress = obj.progress
+				state.downlist[i].statue = obj.status
+				uni.setStorage({
+					ket:"downlist_" +state.user.id,
+					data:JSON.stringify(state.downlist)
+				})
+			}
+		},
 	}
 })
