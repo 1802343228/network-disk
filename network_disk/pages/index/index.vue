@@ -4,13 +4,13 @@
 			<template v-if="checkCount === 0">
 				<template solt="left">
 					<view
-						style="width: 60rpx;height: 60rpx;;"
-						class="flex align-center justify-center bg-light rounded-circle ml-3"
+						style="width: 60rpx;height: 60rpx;position: absolute;left: 30rpx;"
+						class="flex  justify-center bg-light rounded-circle"
 						hover-class="bg-hover-light"
 						@tap="backUp"
 						v-if="current"
 					>
-						<text style="float: left;" class="iconfont icon-fanhui"></text>
+						<text class="iconfont icon-fanhui"></text>
 					</view>
 					<text class="font-md ml-3">{{ current ? current.name : "首页" }}</text>
 				</template>
@@ -275,9 +275,9 @@ export default {
 					this.download();
 					break;
 				case "分享":
-				this.share();
-				this.handleCheckAll(false);
-				break;
+					this.share();
+					this.handleCheckAll(false);
+					break;
 				default:
 					break;
 			}
@@ -330,7 +330,28 @@ export default {
 					});
 					break;
 
-				default:
+				case "上传视频":
+					uni.chooseVideo({
+						count: 1,
+						success: res => {
+							console.log(res);
+							let name = "";
+							let size = 0;
+							//#ifndef H5
+							name = res.tempFilePath.substring(res.tempFilePath.lastIndexOf("/") + 1);
+							size = res.size;
+							//#endif
+							this.upload({
+								path: res.tempFilePath,
+								name,
+								type: "video",
+								size
+							});
+						}
+					});
+					break;
+				case "上传文件":
+					break;
 					break;
 			}
 		},
@@ -461,77 +482,83 @@ export default {
 					}
 				)
 				.then(res => {
-					console.log("1111111111111");
-					console.log(res);
+					// console.log("1111111111111");
+					// console.log(res);
 					this.getData();
 				});
 		},
 		download() {
 			this.checkList.forEach(item => {
-				if(item.isdir === 0) {
+				if (item.isdir === 0) {
 					const key = this.getID(8);
-					
+
 					let obj = {
-						name:item.name,
-						type:item.type,
-						size:item.size,
+						name: item.name,
+						type: item.type,
+						size: item.size,
 						key,
-						progress:0,
-						status:true,
-						create_time:new Date().getTime()
+						progress: 0,
+						status: true,
+						create_time: new Date().getTime()
 					};
-					this.$store.dispatch('createDownLoadJob',obj);
+					this.$store.dispatch("createDownLoadJob", obj);
 					let url = item.url;
 					let d = uni.downloadFile({
 						url,
-						success:res => {
-							if(res.statusCode === 200){
-								console.log('下载成功',res);
+						success: res => {
+							if (res.statusCode === 200) {
+								console.log("下载成功", res);
 								//#ifdef H5
 								uni.saveFile({
-									tempFilePath:item.item.tempFilePath
+									tempFilePath: item.item.tempFilePath
 								});
 								// #endif
 							}
 						}
 					});
 					d.onProgressUpdate(res => {
-						this.$store.dispatch('updateDownLoadJob',{
-							progress:res.progress,
-							status:true,
+						this.$store.dispatch("updateDownLoadJob", {
+							progress: res.progress,
+							status: true,
 							key
 						});
 					});
 				}
 			});
 			uni.showToast({
-				title:'已加入下载任务',
-				icon:'none'
+				title: "已加入下载任务",
+				icon: "none"
 			});
 			this.handleCheckAll(false);
 		},
 		share() {
-			this.$H.post('/share/create',{
-				file_id:this.checkList[0].id
-			},{token:true}).then(res => {
-				uni.showModal({
-					content:res,
-					showCancel:false,
-					success:result => {
-						//#ifndef H5
-						uni.setClipboardData({
-							data:res,
-							success:() => {
-								uni.showToast({
-									title:'复制成功',
-									icon:'none'
-								});
-							}
-						});
-						//#endif
-					}
+			this.$H
+				.post(
+					"/share/create",
+					{
+						file_id: this.checkList[0].id
+					},
+					{ token: true }
+				)
+				.then(res => {
+					uni.showModal({
+						content: res,
+						showCancel: false,
+						success: result => {
+							//#ifndef H5
+							uni.setClipboardData({
+								data: res,
+								success: () => {
+									uni.showToast({
+										title: "复制成功",
+										icon: "none"
+									});
+								}
+							});
+							//#endif
+						}
+					});
 				});
-			});
 		}
 	},
 	computed: {

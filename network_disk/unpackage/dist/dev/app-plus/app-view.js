@@ -239,7 +239,12 @@ var render = function() {
                         "v-uni-view",
                         {
                           staticClass: _vm._$g(4, "sc"),
-                          staticStyle: { width: "60rpx", height: "60rpx" },
+                          staticStyle: {
+                            width: "60rpx",
+                            height: "60rpx",
+                            position: "absolute",
+                            left: "30rpx"
+                          },
                           attrs: { "hover-class": "bg-hover-light", _i: 4 },
                           on: {
                             click: function($event) {
@@ -250,7 +255,6 @@ var render = function() {
                         [
                           _c("v-uni-text", {
                             staticClass: _vm._$g(5, "sc"),
-                            staticStyle: { float: "left" },
                             attrs: { _i: 5 }
                           })
                         ],
@@ -2520,7 +2524,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "文件下载至: _doc/uniapp_temp_1603680037252/download"
+                              "文件下载至: Android/data/io.dcloud.HBuilder/apps/doc"
                             )
                           ]
                         ),
@@ -2955,6 +2959,7 @@ var render = function() {
         "v-uni-view",
         {
           staticClass: _vm._$g(17, "sc"),
+          staticStyle: { width: "600rpx", left: "75rpx" },
           attrs: { "hover-class": "bg-main-hover", _i: 17 },
           on: {
             click: function($event) {
@@ -3259,7 +3264,7 @@ var render = function() {
           }),
           _c("v-uni-input", {
             staticClass: _vm._$g(5, "sc"),
-            attrs: { type: "text", placeholder: "请输入密码", _i: 5 },
+            attrs: { type: "password", placeholder: "请输入密码", _i: 5 },
             model: {
               value: _vm._$g(5, "v-model"),
               callback: function($$v) {
@@ -3271,7 +3276,11 @@ var render = function() {
           _vm._$g(6, "i")
             ? _c("v-uni-input", {
                 staticClass: _vm._$g(6, "sc"),
-                attrs: { type: "text", placeholder: "请输入确认密码", _i: 6 },
+                attrs: {
+                  type: "password",
+                  placeholder: "请输入确认密码",
+                  _i: 6
+                },
                 model: {
                   value: _vm._$g(6, "v-model"),
                   callback: function($$v) {

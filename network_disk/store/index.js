@@ -120,7 +120,7 @@ export default new Vuex.Store({
 			// #ifndef H5
 			uni.getClipboardData({
 				success:(res) => {
-					if(res.data.includes('https://oupai.utools.club')) {
+					if(res.data.includes('http://127.0.0.1:7001')) {
 						let key = res.data.substring(res.data.lastIndexOf('\/') +1,res.data.length)
 						if(!key) {
 							return

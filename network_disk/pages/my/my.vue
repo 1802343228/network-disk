@@ -28,7 +28,9 @@
 			<image src="../../static/jiantou.png" mode="" style="width:40rpx;height: 40rpx;"></image>
 		</view>
 		<view
-		class="position-fixed fixed-bottom bg-main text-white flex align-center justify-center font-md py-2 rounded-circle"
+		
+		class="position-fixed  bg-main text-white flex align-center justify-center font-md py-2 rounded-circle"
+		style="width: 600rpx;left: 75rpx;"
 		hover-class="bg-main-hover"
 		@click="logout"
 		>退出登录</view>

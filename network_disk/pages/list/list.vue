@@ -19,7 +19,7 @@
 				<scroll-view scroll-y="true" class="flex-1">
 					<!-- 下载列表 -->
 					<template v-if="index === 0">
-						<view style="height: 60rpx;" class="bg-light flex align-center font-sm px-2 text-muted">文件下载至: _doc/uniapp_temp_1603680037252/download</view>
+						<view style="height: 60rpx;" class="bg-light flex align-center font-sm px-2 text-muted">文件下载至: Android/data/io.dcloud.HBuilder/apps/doc</view>
 						<view class="p-2 border-bottom border-light-secondary font text-muted">下载中({{ downing.length }})</view>
 						<!-- 同级还有f-list绑定了key为index，会冲突，所以加上不同的前缀区分，否则会报错 -->
 						<f-list v-for="(item, index) in downing" :key="'i' + index" :item="item" :index="index">
@@ -99,8 +99,19 @@ export default {
 	},
 	computed: {
 		...mapState({
-			uploadList: state => state.uploadList
+			uploadList: state => state.uploadList,
+			downlist:state => state.downlist
 		}),
+		downing() {
+			return this.downlist.filter(item => {
+				return item.progress < 100;
+			});
+		},
+		downed() {
+			return this.downlist.filter(item => {
+				return item.progress === 100;
+			});
+		},
 		uploading() {
 			return this.uploadList.filter(item => {
 				return item.progress < 100;
@@ -116,7 +127,7 @@ export default {
 		changeTab(index) {
 			this.tabIndex = index;
 		},
-		onNavigaationBarButtonTap() {
+		onNavigationBarButtonTap() {
 			uni.showModal({
 				content:'是否要清除传输记录？',
 				success:res => {
