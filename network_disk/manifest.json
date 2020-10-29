@@ -74,5 +74,16 @@
     },
     "uniStatistics": {  
         "enable": false
-    }
+    },
+	"safearea": { //安全区域配置，仅iOS平台生效
+	   "background":"#CCCCCC", // 安全区域外的背景颜色，默认值为"#FFFFFF"
+	   "bottom":{ // 底部安全区域配置
+	       "offset":"none|auto" // 底部安全区域偏移，"none"表示不空出安全区域，"auto"自动计算空出安全区域，默认值为"none"
+	  }
+	},
+	"statusbar": {
+	  "immersed": "none|suggestedDevice|supportedDevice，沉浸式状态栏情况",
+	  "style": "dark|light, 系统状态栏样式",
+	  "background": "#RRGGBB格式字符串，系统状态栏背景颜色"
+	}
 }
